@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Камень-Ножницы-Бумага</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body style="font-family: sans-serif; padding: 20px; background: #f9f9f9;">
+
+  <h2>Камень, Ножницы, Бумага</h2>
+  <button id="play">Играть!</button>
+  <pre id="result" style="margin-top: 20px; white-space: pre-wrap;"></pre>
+
+  <script>
+    // Твой код (немного адаптирован)
+    document.getElementById('play').onclick = () => {
+      let player = Math.floor(Math.random() * 3) + 1;
+      const rock = 1, paper = 2, scissors = 3;
+      let comp = Math.floor(Math.random() * 3) + 1;
+
+      let result = '';
+
+      const pickName = n => n === 1 ? 'rock' : n === 2 ? 'paper' : 'scissors';
+
+      if (comp === player) {
+        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nDraw!`;
+      } else if (
+        (comp === rock && player === scissors) ||
+        (comp === paper && player === rock) ||
+        (comp === scissors && player === paper)
+      ) {
+        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nComp wins!`;
+      } else {
+        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nPlayer wins!`;
+      }
+
+      document.getElementById('result').textContent = result;
+    };
+  </script>
+</body>
+</html>
