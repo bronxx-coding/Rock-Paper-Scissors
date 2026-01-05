@@ -5,39 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Камень-Ножницы-Бумага</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      text-align: center;
+      color: #333;
+    }
+    .choice-btn {
+      padding: 12px 24px;
+      margin: 8px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .choice-btn:hover {
+      background: #e9ecef;
+    }
+    #result {
+      margin-top: 24px;
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; padding: 20px; background: #f9f9f9;">
+<body>
 
   <h2>Камень, Ножницы, Бумага</h2>
-  <button id="play">Играть!</button>
-  <pre id="result" style="margin-top: 20px; white-space: pre-wrap;"></pre>
+  <p>Выбери свой ход:</p>
+
+  <button class="choice-btn" onclick="play(1)">Камень 🪨</button>
+  <button class="choice-btn" onclick="play(2)">Бумага 📄</button>
+  <button class="choice-btn" onclick="play(3)">Ножницы ✂️</button>
+
+  <div id="result">Результат появится здесь</div>
 
   <script>
-    // Твой код (немного адаптирован)
-    document.getElementById('play').onclick = () => {
-      let player = Math.floor(Math.random() * 3) + 1;
+    function play(player) {
       const rock = 1, paper = 2, scissors = 3;
-      let comp = Math.floor(Math.random() * 3) + 1;
+      const comp = Math.floor(Math.random() * 3) + 1;
 
-      let result = '';
+      const name = n => n === 1 ? 'Камень' : n === 2 ? 'Бумага' : 'Ножницы';
 
-      const pickName = n => n === 1 ? 'rock' : n === 2 ? 'paper' : 'scissors';
+      let resultText = `Вы: ${name(player)}\nКомпьютер: ${name(comp)}\n\n`;
 
       if (comp === player) {
-        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nDraw!`;
+        resultText += "Ничья!";
       } else if (
         (comp === rock && player === scissors) ||
         (comp === paper && player === rock) ||
         (comp === scissors && player === paper)
       ) {
-        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nComp wins!`;
+        resultText += "Компьютер победил!";
       } else {
-        result = `Player picked:     ${pickName(player)}\nComp picked:       ${pickName(comp)}\nPlayer wins!`;
+        resultText += "Вы победили!";
       }
 
-      document.getElementById('result').textContent = result;
-    };
+      document.getElementById('result').textContent = resultText;
+    }
   </script>
 </body>
-
 </html>
