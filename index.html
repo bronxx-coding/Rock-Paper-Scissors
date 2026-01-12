@@ -1,80 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Камень-Ножницы-Бумага</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      padding: 20px;
-      background: #f5f5f5;
-      text-align: center;
-      color: #333;
-    }
-    .choice-btn {
-      padding: 12px 24px;
-      margin: 8px;
-      font-size: 18px;
-      border: none;
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .choice-btn:hover {
-      background: #e9ecef;
-    }
-    #result {
-      margin-top: 24px;
-      padding: 16px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      min-height: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      white-space: pre-wrap;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slot Machine</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="slots" id="slot-machine">
+    <div class="reel"></div>
+    <div class="reel"></div>
+    <div class="reel"></div>
+  </div>
 
-  <h2>Камень, Ножницы, Бумага</h2>
-  <p>Выбери свой ход:</p>
-
-  <button class="choice-btn" onclick="play(1)">Камень 🪨</button>
-  <button class="choice-btn" onclick="play(2)">Бумага 📄</button>
-  <button class="choice-btn" onclick="play(3)">Ножницы ✂️</button>
-
-  <div id="result">Результат появится здесь</div>
-
-  <script>
-    function play(player) {
-      const rock = 1, paper = 2, scissors = 3;
-      const comp = Math.floor(Math.random() * 3) + 1;
-
-      const name = n => n === 1 ? 'Камень' : n === 2 ? 'Бумага' : 'Ножницы';
-
-      let resultText = `Вы: ${name(player)}\nКомпьютер: ${name(comp)}\n\n`;
-
-      if (comp === player) {
-        resultText += "Ничья!";
-      } else if (
-        (comp === rock && player === scissors) ||
-        (comp === paper && player === rock) ||
-        (comp === scissors && player === paper)
-      ) {
-        resultText += "Компьютер победил!";
-      } else {
-        resultText += "Вы победили!";
-      }
-
-      document.getElementById('result').textContent = resultText;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
