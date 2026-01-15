@@ -6,11 +6,11 @@ let welcomePhase = 0;
 let currentTypingTimer = null;
 
 // === ЗВУКИ (Howler.js) ===
-let clickSound, spinSound, win2Sound, jackpotSound;
-let soundsUnlocked = false;
+//let clickSound, spinSound, win2Sound, jackpotSound;
+//let soundsUnlocked = false;
 
 // Разблокировка Web Audio API при первом взаимодействии
-function unlockSounds() {
+/*function unlockSounds() {
   if (soundsUnlocked) return;
   soundsUnlocked = true;
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -21,11 +21,11 @@ function unlockSounds() {
     oscillator.stop();
     ctx.close();
   }, 10);
-}
+}*/
 document.body.addEventListener('click', unlockSounds, { once: true });
 
 // Инициализация звуков
-function initSounds() {
+/*function initSounds() {
   const base = 'https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/a0c0c59caa7e9d92011733ba4dd145dd0e07d77d/';
   
   clickSound = new Howl({
@@ -48,7 +48,7 @@ function initSounds() {
     volume: 0.8,
     preload: true
   });
-}
+}*/
 
 async function fetchWeatherAndDate(lat, lon, city = "Москва") {
   try {
@@ -265,8 +265,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // === Обработчики welcome ===
 document.getElementById('readNextWelcome').addEventListener('click', () => {
-  if (!soundsUnlocked) unlockSounds();
-  if (soundsUnlocked) clickSound.play();
+  /*if (!soundsUnlocked) unlockSounds();
+  if (soundsUnlocked) clickSound.play();*/
+  playSound('click.mp3', 0.5);
   if (welcomePhase < 2) {
     welcomePhase++;
     typeMessageWelcome(getWelcomeMessage(welcomePhase, currentTemp), 40, true);
@@ -285,8 +286,9 @@ document.getElementById('readNextWelcome').addEventListener('click', () => {
 });
 
 document.getElementById('readBackWelcome').addEventListener('click', () => {
-  if (!soundsUnlocked) unlockSounds();
-  if (soundsUnlocked) clickSound.play();
+  /*if (!soundsUnlocked) unlockSounds();
+  if (soundsUnlocked) clickSound.play();*/
+  playSound('click.mp3', 0.5);
   if (welcomePhase > 0) {
     welcomePhase--;
     typeMessageWelcome(getWelcomeMessage(welcomePhase, currentTemp), 40, true);
@@ -306,8 +308,9 @@ document.getElementById('readBackWelcome').addEventListener('click', () => {
 
 // === ПЕРЕХОД К СЛОТУ ===
 document.getElementById('icon3').addEventListener('click', () => {
-  if (!soundsUnlocked) unlockSounds(); // ← разблокировка при первом клике
-  if (soundsUnlocked) clickSound.play(); // ← звук клика
+  /*if (!soundsUnlocked) unlockSounds(); // ← разблокировка при первом клике
+  if (soundsUnlocked) clickSound.play(); // ← звук клика*/
+  playSound('click.mp3', 0.5);
   
   if (welcomePhase === 2) {
     document.getElementById('welcomeScreen').style.display = 'none';
@@ -349,6 +352,15 @@ function initSlotMachineApp() {
     "ХА-ХА!😂 Я так и думал!\nЗа 2 шапки, шишки, кружки или 2 камина на центральной линии получишь очки, а за 3 любые главный приз!"
   ];
 
+  // === ЗВУКИ (нативный Audio) ===
+function playSound(filename, volume = 0.5) {
+  const audio = new Audio(filename);
+  audio.volume = volume;
+  audio.play().catch(e => {
+    // Игнорируем ошибки autoplay (нормально для первого клика)
+  });
+}
+
   function typeMessageSlot(text, speed = 40, animateDots = true) {
     const element = document.getElementById('typewriter-slot');
     const statusDots = document.querySelector('#slotMachineApp .status-dots');
@@ -378,8 +390,9 @@ function initSlotMachineApp() {
 
   // === УПРАВЛЕНИЕ КНОПКАМИ СЛОТА ===
   document.getElementById('readNextSlot').addEventListener('click', () => {
-    if (!soundsUnlocked) unlockSounds();
-    if (soundsUnlocked) clickSound.play();
+    /*if (!soundsUnlocked) unlockSounds();
+    if (soundsUnlocked) clickSound.play();*/
+    playSound('click.mp3', 0.5);
     if (messageState < 2) {
       messageState++;
       typeMessageSlot(messages[messageState], 40, true);
@@ -398,8 +411,9 @@ function initSlotMachineApp() {
   });
 
   document.getElementById('readBackSlot').addEventListener('click', () => {
-    if (!soundsUnlocked) unlockSounds();
-    if (soundsUnlocked) clickSound.play();
+    /*if (!soundsUnlocked) unlockSounds();
+    if (soundsUnlocked) clickSound.play();*/
+    playSound('click.mp3', 0.5);
     if (messageState > 0) {
       messageState--;
       typeMessageSlot(messages[messageState], 40, true);
@@ -443,9 +457,10 @@ function initSlotMachineApp() {
     const slotMachine = document.getElementById('slot-machine');
     slotMachine.style.pointerEvents = 'none';
     
-   if (soundsUnlocked) {
+   /*if (soundsUnlocked) {
   setTimeout(() => spinSound.play(), 400); // ← задержка 0.4 сек
-} // ← ЗВУК СПИНА
+} // ← ЗВУК СПИНА*/
+    setTimeout(() => playSound('spin_short.mp3', 0.6), 400);
     
     document.getElementById('giftButton').classList.remove('show');
     
@@ -481,7 +496,8 @@ function initSlotMachineApp() {
           typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
           document.getElementById('giftButton').classList.add('show');
           
-          if (soundsUnlocked) jackpotSound.play(); // ← ЗВУК ДЖЕКПОТА
+          /*if (soundsUnlocked) jackpotSound.play(); // ← ЗВУК ДЖЕКПОТА*/
+          playSound('win_3x.mp3', 0.8);
         }
         else if (
           (a === b && a !== c && winSymbols.includes(iconA)) ||
@@ -500,7 +516,8 @@ function initSlotMachineApp() {
           document.getElementById('giftBlueButton').textContent = randomMessage;
           document.getElementById('giftBlueButton').style.display = 'flex';
           
-          if (soundsUnlocked) win2Sound.play(); // ← ЗВУК ВЫИГРЫША X2
+          /*if (soundsUnlocked) win2Sound.play(); // ← ЗВУК ВЫИГРЫША X2*/
+          playSound('win_2x.mp3', 0.7);
         }
         
         slotMachine.style.pointerEvents = 'auto';
@@ -518,8 +535,9 @@ function initSlotMachineApp() {
 
 // Обработчик закрытия слота
 document.getElementById('closeSlot').addEventListener('click', () => {
-  if (!soundsUnlocked) unlockSounds();
-  if (soundsUnlocked) clickSound.play();
+  /*if (!soundsUnlocked) unlockSounds();
+  if (soundsUnlocked) clickSound.play();*/
+  playSound('click.mp3', 0.5);
   document.getElementById('slotMachineApp').style.display = 'none';
   document.getElementById('welcomeScreen').style.display = 'block';
   
