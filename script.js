@@ -22,7 +22,6 @@ let currentTypingTimer = null;
     ctx.close();
   }, 10);
 }*/
-/*document.body.addEventListener('click', unlockSounds, { once: true });*/
 
 // Инициализация звуков
 /*function initSounds() {
