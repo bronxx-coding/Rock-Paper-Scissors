@@ -2,23 +2,26 @@
 .webapp-wrapper {
   width: 608px;
   height: 1080px;
-  overflow: hidden;
   position: relative;
-  background: lightgrey;
-  /* Убираем возможные отступы */
-  margin: 0;
-  padding: 0;
+  transform-origin: top left;
 }
 
+/* === Фон должен совпадать с нижней частью фрейма === */
 body {
   margin: 0;
   padding: 0;
+  background: #E30512; /* ← цвет из gradient-panel */
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* выравнивание по верхнему краю */
   min-height: 100vh;
-  background: lightgrey;
-  /* Запрещаем масштабирование */
-  overscroll-behavior: none;
+  overflow: hidden;
+}
+
+/* Масштабирование по ширине */
+@media (max-width: 608px) {
+  .webapp-wrapper {
+    transform: scale(calc(100vw / 608));
+  }
 }
 
 /* Запрещаем выделение (для чистоты) */
