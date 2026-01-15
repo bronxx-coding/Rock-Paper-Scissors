@@ -5,6 +5,9 @@
   overflow: hidden;
   position: relative;
   background: lightgrey;
+  /* Убираем возможные отступы */
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -28,15 +31,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  background: lightgrey;
 }
 
 .app-container {
