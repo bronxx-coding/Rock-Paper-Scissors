@@ -239,12 +239,18 @@ function createSnow() {
 }
 
 // === ЗВУКИ (нативный Audio) ===
-function playSound(filename, volume = 0.5) {
+/*function playSound(filename, volume = 0.5) {
   const audio = new Audio(filename);
   audio.volume = volume;
   audio.play().catch(e => {
     // Игнорируем ошибки autoplay (нормально для первого клика)
   });
+}*/
+
+const originalPlaySound = playSound;
+function playSound(filename, volume = 0.5) {
+  if (isMuted) return;
+  originalPlaySound(filename, volume);
 }
 
 // === Инициализация welcome ===
@@ -253,6 +259,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   const statusDots = document.querySelector('#welcomeScreen .status-dots');
   if (statusDots) statusDots.classList.add('animating');
+
+  const muteButton = document.getElementById('muteButton');
+  if (muteButton) {
+    muteButton.addEventListener('click', toggleMute);
+  }
   
   typeMessageWelcome(getWelcomeMessage(0), 40, false);
   
@@ -608,4 +619,20 @@ if (window.Telegram?.WebApp) {
   });
 }
 
+
+// === УПРАВЛЕНИЕ ЗВУКОМ ===
+let isMuted = false;
+
+function toggleMute() {
+  isMuted = !isMuted;
+  const muteButton = document.getElementById('muteButton');
+  
+  if (isMuted) {
+    muteButton.textContent = '🔇';
+    muteButton.classList.add('muted');
+  } else {
+    muteButton.textContent = '🔊';
+    muteButton.classList.remove('muted');
+  }
+}
 
