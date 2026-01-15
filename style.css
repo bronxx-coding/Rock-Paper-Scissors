@@ -1,104 +1,393 @@
-.debug {
-  position: fixed;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  font-family: monospace;
-  font-size: 1.6rem;
-}
-
-html, body {
-  height: 100%;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background: lightgrey;
+}
+
+.app-container {
+  position: relative;
+  width: 608px;
+  height: 1080px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* === Общие элементы === */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 608px;
+  height: 1080px;
+  background-color: black;
+  z-index: 0;
+}
+
+.white-panel {
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  width: 556px;
+  height: 605px;
+  background-color: white;
+  border-radius: 92px;
+  z-index: 2;
+}
+
+.interface-overlay {
+  position: absolute;
+  top: 22px;
+  left: 26px;
+  width: 556px;
+  height: 605px;
+  background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/interface2.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* === Слот-машина: фрейм === */
+#slotMachineApp .slot-frame {
+  position: absolute;
+  top: 56px;
+  left: 60px;
+  width: 488px;
+  height: 447px;
+  background-color: #E5E5E5;
+  border-radius: 68px;
+  z-index: 8;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(45deg, grey 0%, lightgray 100%);
-  font-family: sans-serif;
+}
+
+.miniPanel {
+  position: absolute;
+  top: 653px;
+  left: 24px;
+  width: 257px;
+  height: 78px;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 12;
+  overflow: hidden;
+}
+
+.robot-status {
+  position: absolute;
+  left: 6px;
+  top: 7px;
+  width: auto;
+  height: auto;
+}
+
+/*.avatar {
+  position: absolute;
+  top: 663px;
+  left: 37px;
+  width: 61px;
+  height: 61px;
+  background-color: black;
+  border-radius: 50%;
+  z-index: 13;
+}*/
+
+.bot-title {
+  position: absolute;
+  top: 657px;
+  left: 119px;
+  font-weight: 700;
+  font-size: 32px;
+  color: black;
+  z-index: 13;
+}
+
+.status-dots {
+  position: absolute;
+  top: 706px;
+  left: 122px;
+  display: flex;
+  gap: 3px;
+  z-index: 13;
+}
+
+.status-dots span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  background-color: #E30512;
+  border-radius: 50%;
+}
+
+.status-dots.animating span {
+  animation: wave 1.2s infinite ease-in-out;
+}
+.status-dots.animating span:nth-child(2) { animation-delay: 0.2s; }
+.status-dots.animating span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.bot-subtitle {
+  position: absolute;
+  top: 700px;
+  left: 164px;
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  z-index: 13;
+  line-height: 1;
+}
+
+.frontMessage {
+  position: absolute;
+  top: 737px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  height: 249px;
+  background-color: white;
+  border-radius: 4px 64px 64px 64px;
+  z-index: 10;
+}
+
+.message-text {
+  position: absolute;
+  top: 749px;
+  left: 56px;
+  right: 30px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 140%;
+  color: black;
+  z-index: 11;
+  word-wrap: break-word;
+}
+
+/* === Кнопки навигации === */
+/* === Кнопки: общие свойства === */
+.readNext,
+.readBack {
+  position: absolute;
+  bottom: 45px;
+  height: 32px;
+  background-color: white;
+  border-radius: 36px;
+  display: none;
+  align-items: center;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.readNext span,
+.readBack span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+  white-space: nowrap;
+}
+
+.arrow-right,
+.arrow-left {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: auto;
+}
+
+/* === Welcome: Читать далее === */
+#readNextWelcome {
+  right: 26px;
+  width: 158px;
+  justify-content: flex-end;
+  padding-right: 32px;
+}
+
+#readNextWelcome .arrow-right {
+  right: 10px;
+}
+
+/* === Welcome: Назад === */
+#readBackWelcome {
+  left: 26px;
+  width: 112px;
+  justify-content: flex-start;
+  padding-left: 32px;
+}
+
+#readBackWelcome .arrow-left {
+  left: 10px;
+}
+
+/* === Слот: Читать далее === */
+#readNextSlot {
+  right: 26px;
+  width: 170px; /* чуть шире, чтобы не переносилось */
+  justify-content: flex-end;
+  padding-right: 28px;
+}
+
+#readNextSlot .arrow-right {
+  right: 10px;
+}
+
+/* === Слот: Назад === */
+#readBackSlot {
+  left: 26px;
+  width: 112px;
+  justify-content: flex-start;
+  padding-left: 32px;
+}
+
+#readBackSlot .arrow-left {
+  left: 10px;
+}
+
+/* === Иконки welcome === */
+#icon1, #icon2, #icon3 { display: none; }
+
+.icon-row {
+  position: absolute;
+  top: 117px;
+  left: 111px;
+  display: flex;
+  gap: 40px;
+  z-index: 10;
+}
+
+.icon-item {
+  width: 102px;
+  height: 112px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.icon-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.icon-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  text-align: center;
+  width: 100%;
+}
+
+.date-number { top: 52px; font-size: 26px; color: #3A270E; }
+.date-day { top: 86px; font-size: 11px; color: #F84230; }
+.temp-value { top: 54px; font-size: 26px; color: #3A270E; }
+.city-name { top: 86px; font-size: 11px; color: #F84230; }
+
+/* === Анимации иконок === */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+.icon-shake { animation: shake 0.4s ease-in-out; }
+
+@keyframes sway {
+  0%   { transform: rotate(-4deg); }
+  50%  { transform: rotate(4deg); }
+  100% { transform: rotate(-4deg); }
+}
+.icon-sway { animation: sway 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* === Прогресс-бар === */
+.progressBar-dots {
+  position: absolute;
+  bottom: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 12;
+}
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: #CACACA;
+}
+.dot.active { background-color: white; }
+
+/* === Фоновые оверлеи === */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 608px;
+  height: 1080px;
+  background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/background_overlay.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.welcome-robot {
+  position: absolute;
+  top: 279px;
+  right: 51px;
+  z-index: 9;
+}
+
+/* === Слот-машина === */
+.gradient-panel {
+  position: absolute;
+  bottom: 61px;
+  left: 0;
+  width: 608px;
+  height: calc(1080px - 61px);
+  background: linear-gradient(to bottom right, #F5202C, #F84730, #EE7A61);
+  border-bottom-left-radius: 96px;
+  border-bottom-right-radius: 96px;
+  z-index: 1;
 }
 
 .slots {
-  position: relative;
-  width: 276.5px; /* 3.5 * 79px */
-  height: 237px; /* 3 * 79px */
-  display: flex;
-  justify-content: space-between;
-  padding: 23.7px; /* 0.3 * 79px */
-  background: linear-gradient(45deg, grey 0%, lightgray 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
-  border-right: 1px solid rgba(255, 255, 255, 0.6);
-  border-left: 1px solid rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.slots::before,
-.slots::after {
-  content: "";
   position: absolute;
   top: 50%;
-  width: 10px;
-  height: 2px;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.slots::before {
-  left: 0;
-  transform: translate(-200%, -50%);
-}
-
-.slots::after {
-  right: 0;
-  transform: translate(200%, -50%);
-}
-
-@keyframes win1 {
-  0% {
-    background: linear-gradient(45deg, orange 0%, yellow 100%);
-    box-shadow: 0 0 80px orange;
-  }
-  100% {
-    background: linear-gradient(45deg, grey 0%, lightgrey 100%);
-    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-
-@keyframes win2 {
-  0% {
-    background: linear-gradient(45deg, lightblue 0%, lightgreen 100%);
-    box-shadow: 0 0 80px lightgreen;
-  }
-  100% {
-    background: linear-gradient(45deg, grey 0%, lightgrey 100%);
-    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-
-.slots.win1 {
-  animation: win1 200ms steps(2, end) infinite;
-}
-
-.slots.win2 {
-  animation: win2 200ms steps(2, end) infinite;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 402px;
+  height: 402px;
+  display: flex;
+  gap: 12px;
+  z-index: 9;
 }
 
 .slots .reel {
   position: relative;
-  width: 79px;
-  height: 237px; /* 3 * 79px */
+  width: 134px;
+  height: 402px;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  border-radius: 24px;
   overflow: hidden;
-  background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/slotreel.webp");
+  background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/slotreel3.webp");
   background-position: 0 0;
   background-repeat: repeat-y;
 }
@@ -117,4 +406,144 @@ body {
     rgba(0, 0, 0, 0.4) 100%
   );
   box-shadow: inset 0 0 6px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes win-blue {
+  0% { background-color: #1e90ff; box-shadow: 0 0 60px #1e90ff; }
+  100% { background-color: black; box-shadow: none; }
+}
+@keyframes win-green {
+  0% { background-color: #32CD32; box-shadow: 0 0 60px #32CD32; }
+  100% { background-color: black; box-shadow: none; }
+}
+.slot-frame.win-blue { animation: win-blue 300ms steps(2, end) infinite; }
+.slot-frame.win-green { animation: win-green 300ms steps(2, end) infinite; }
+
+.backMessage {
+  position: absolute;
+  bottom: 93px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  height: 220px;
+  background-color: white;
+  opacity: 0.2;
+  border-radius: 86px;
+  z-index: 3;
+}
+
+/* === Кнопки слота === */
+.giftButton {
+  position: absolute;
+  top: 526px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 402px;
+  height: 78px;
+  border-radius: 52px;
+  background: linear-gradient(to top right, #00B354, #49CC86);
+  display: none;
+  align-items: center;
+  padding-left: 36px;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 29px;
+  color: white;
+  cursor: pointer;
+  z-index: 11;
+  overflow: hidden;
+}
+.giftButton.show { display: flex; }
+
+.gift-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  width: auto;
+}
+
+.score-label {
+  position: absolute;
+  top: 676px;
+  left: 300px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: white;
+  z-index: 12;
+}
+
+.score-value {
+  position: absolute;
+  top: 668px;
+  left: 434px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: white;
+  z-index: 12;
+}
+
+/*.giftBlueButton {
+  position: absolute;
+  top: 526px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 402px;
+  height: 78px;
+  border-radius: 52px;
+  background: linear-gradient(to top right, #8091FF, #9DAAFF);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 29px;
+  color: white;
+  z-index: 11;
+}*/
+
+/* Скрываем slot-frame только в welcome */
+#welcomeScreen .slot-frame {
+  display: none !important;
+}
+
+/* Скрываем white-panel только в welcome */
+#welcomeScreen .white-panel {
+  display: none !important;
+}
+
+
+/* Курсор для барабанов */
+#slotMachineApp .slots .reel {
+  cursor: pointer;
+}
+
+/* Курсор для 3-й иконки */
+#icon3 {
+  cursor: pointer;
+}
+
+#slotMachineApp .background {
+  background-color: #E30512; /* вместо black */
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #FF9D94;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 20;
+  line-height: 1;
+}
+
+#giftBlueButton {
+  display: none !important;
 }
