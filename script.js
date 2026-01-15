@@ -565,6 +565,44 @@ document.getElementById('closeSlot').addEventListener('click', () => {
   }, messageLength * 40 + 500);
 });
 
+function adjustAppScale() {
+  const wrapper = document.querySelector('.webapp-wrapper');
+  if (!wrapper) return;
+  
+  // Используем clientWidth вместо innerWidth (точнее для iOS)
+  const screenWidth = document.documentElement.clientWidth;
+  const designWidth = 608;
+  
+  // Масштабируем ТОЛЬКО если экран уже дизайна
+  const scale = screenWidth < designWidth ? screenWidth / designWidth : 1;
+  
+  wrapper.style.transform = `scale(${scale})`;
+  wrapper.style.width = `${designWidth}px`;
+  wrapper.style.height = '1080px';
+  
+  // Убираем скролл
+  document.body.style.overflow = 'hidden';
+  
+  // Фикс для iOS: предотвращаем "прыжки" при скролле
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+}
 
+// Запускаем с задержкой для iOS
+window.addEventListener('load', () => {
+  setTimeout(adjustAppScale, 100);
+});
+
+// Обновляем при изменении размера
+window.addEventListener('resize', () => {
+  setTimeout(adjustAppScale, 100);
+});
+
+// Для Telegram
+if (window.Telegram?.WebApp) {
+  window.Telegram.WebApp.onEvent('viewportChanged', () => {
+    setTimeout(adjustAppScale, 100);
+  });
+}
 
 
