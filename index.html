@@ -3,16 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slot Machine</title>
+  <title>Slot App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="slots" id="slot-machine">
-    <div class="reel"></div>
-    <div class="reel"></div>
-    <div class="reel"></div>
+  <!-- Приветственный экран -->
+  <div class="app-container" id="welcomeScreen">
+    <div class="progressBar-dots" id="progressBar">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    <div class="background"></div>
+    <div class="background-overlay"></div>
+    <div class="white-panel"></div>
+    <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/welcome_robot.webp" class="welcome-robot">
+    <div class="interface-overlay"></div>
+    <div class="slot-frame welcome-slot-frame"></div>
+    <div class="miniPanel">
+      <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/robot_statusOK.webp" class="robot-status">
+    </div>
+    <div class="avatar"></div>
+    <div class="bot-title">MagBot</div>
+    <div class="status-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="bot-subtitle">говорит</div>
+    <div class="frontMessage"></div>
+    <div class="message-text">
+      <span id="typewriter-welcome"></span>
+    </div>
+    <div class="readNext" id="readNextWelcome">
+  <span>Читать далее</span>
+  <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/a1e4b6a7c39a0402406d61daf825d32719e4c4fb/arrow_right.svg" class="arrow-right">
+</div>
+<div class="readBack" id="readBackWelcome">
+  <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/a1e4b6a7c39a0402406d61daf825d32719e4c4fb/arrow_left.svg" class="arrow-left">
+  <span>Назад</span>
+</div>
+    <div class="icon-row">
+      <div class="icon-item" id="icon1">
+        <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/w-icon-1.webp" alt="">
+        <div class="icon-text date-number" id="dateNumber">14</div>
+        <div class="icon-text date-day" id="dateDay">среда</div>
+      </div>
+      <div class="icon-item" id="icon2">
+        <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/w-icon-2.webp" alt="">
+        <div class="icon-text temp-value" id="tempValue">-5°</div>
+        <div class="icon-text city-name" id="cityName">Москва</div>
+      </div>
+      <div class="icon-item" id="icon3">
+        <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/w-icon-3.webp" alt="">
+      </div>
+    </div>
   </div>
 
+  <!-- Слот-машина -->
+  <div class="app-container" id="slotMachineApp" style="display: none;">
+    <div class="close-button" id="closeSlot">✕</div>
+    <div class="background"></div>
+    <div class="gradient-panel"></div>
+    <div class="white-panel"></div>
+    <div class="interface-overlay"></div>
+    <div class="slot-frame">
+      <div class="slots" id="slot-machine">
+        <div class="reel"></div>
+        <div class="reel"></div>
+        <div class="reel"></div>
+      </div>
+    </div>
+    <div class="backMessage"></div>
+    <div class="frontMessage"></div>
+    <div class="miniPanel">
+      <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/robot_statusOK.webp" class="robot-status">
+    </div>
+    <div class="avatar"></div>
+    <div class="bot-title">MagBot</div>
+    <div class="status-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="bot-subtitle">говорит</div>
+    <div class="message-text">
+      <span id="typewriter-slot"></span>
+    </div>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="giftButton" id="giftButton">
+      Забрать подарок
+      <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/main_gift.webp" class="gift-icon">
+    </a>
+    <div class="giftBlueButton" id="giftBlueButton"></div>
+    <div class="score-label">Твой счёт:</div>
+    <div class="score-value" id="scoreValue">0</div>
+    <div class="readNext" id="readNextSlot">
+  <span>Читать далее</span>
+  <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/a1e4b6a7c39a0402406d61daf825d32719e4c4fb/arrow_right.svg" class="arrow-right">
+</div>
+<div class="readBack" id="readBackSlot">
+  <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/a1e4b6a7c39a0402406d61daf825d32719e4c4fb/arrow_left.svg" class="arrow-left">
+  <span>Назад</span>
+</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
