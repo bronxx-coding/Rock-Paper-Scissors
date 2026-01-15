@@ -3,16 +3,17 @@
   width: 608px;
   height: 1080px;
   position: relative;
-  transform-origin: top left;
+  transform-origin: top center; /* ← ключевое изменение! */
 }
 
 /* === Фон должен совпадать с нижней частью фрейма === */
 body {
   margin: 0;
   padding: 0;
-  background: #E30512; /* ← цвет из gradient-panel */
+  background: #E30512;
   display: flex;
-  justify-content: flex-start; /* выравнивание по верхнему краю */
+  justify-content: center; /* ← центрируем по горизонтали */
+  align-items: flex-start; /* ← прижимаем к верху */
   min-height: 100vh;
   overflow: hidden;
 }
