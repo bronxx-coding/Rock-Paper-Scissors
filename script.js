@@ -241,7 +241,7 @@ function createSnow() {
 
 // === Инициализация welcome ===
 document.addEventListener('DOMContentLoaded', async () => {
-  initSounds(); // ← ИНИЦИАЛИЗАЦИЯ ЗВУКОВ
+  /*initSounds(); */ // ← ИНИЦИАЛИЗАЦИЯ ЗВУКОВ
   
   const statusDots = document.querySelector('#welcomeScreen .status-dots');
   if (statusDots) statusDots.classList.add('animating');
