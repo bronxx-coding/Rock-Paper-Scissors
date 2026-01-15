@@ -525,7 +525,7 @@ else if (
 }
 
 slotMachine.style.pointerEvents = 'auto';
-  }
+  });
 
   document.getElementById('slot-machine').addEventListener('click', rollAll);
   
