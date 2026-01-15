@@ -247,7 +247,16 @@ function createSnow() {
   });
 }*/
 
-const originalPlaySound = playSound;
+const originalPlaySound = function(filename, volume = 0.5) {
+  if (!filename || typeof filename !== 'string') return;
+  const audio = new Audio(filename);
+  audio.volume = volume;
+  audio.play().catch(e => {
+    console.log("Звук заблокирован:", filename);
+  });
+};
+
+// Переписываем playSound с управлением звуком
 function playSound(filename, volume = 0.5) {
   if (isMuted) return;
   originalPlaySound(filename, volume);
@@ -484,18 +493,77 @@ function initSlotMachineApp() {
         
         const slotFrame = document.querySelector('#slotMachineApp .slot-frame');
         slotFrame.classList.remove('win-blue', 'win-green');
-        
+
+
         const [a, b, c] = indexes;
+const iconA = iconMap[a];
+const iconB = iconMap[b];
+const iconC = iconMap[c];
+
+if (a === b && b === c) {
+  // === ДЖЕКПОТ (3x) ===
+  slotFrame.classList.add('win-green');
+  setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
+  
+  confetti({
+    particleCount: 150,
+    spread: 270,
+    origin: { x: 0.5, y: 0.5 },
+    startVelocity: 45,
+    gravity: 1,
+    colors: ['#E30512', '#FFFFFF', '#5AB649', '#FFD700', '#1E90FF'],
+    scalar: 1.2,
+    zIndex: 1000
+  });
+  
+  typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
+  
+  score += 1000;
+  document.getElementById('scoreValue').textContent = score;
+  document.getElementById('giftButton').classList.add('show');
+  
+  setTimeout(() => playSound('win_3x.mp3', 0.8), 300);
+}
+else if (
+  (a === b && a !== c && winSymbols.includes(iconA)) ||
+  (b === c && b !== a && winSymbols.includes(iconB)) ||
+  (a === c && a !== b && winSymbols.includes(iconA))
+) {
+  // === ВЫИГРЫШ (2x) ===
+  slotFrame.classList.add('win-blue');
+  setTimeout(() => slotFrame.classList.remove('win-blue'), 2000);
+  
+  const randomMessage = blueMessages[Math.floor(Math.random() * blueMessages.length)];
+  typeMessageSlot(randomMessage);
+  
+  score += 20;
+  document.getElementById('scoreValue').textContent = score;
+  
+  document.getElementById('giftBlueButton').textContent = randomMessage;
+  document.getElementById('giftBlueButton').style.display = 'flex';
+  
+  playSound('win_2x.mp3', 0.7);
+}
+
+slotMachine.style.pointerEvents = 'auto';
+
+        
+        /*снизу сломанный код */
+        /*const [a, b, c] = indexes;
         const iconA = iconMap[a];
         const iconB = iconMap[b];
         const iconC = iconMap[c];
         
         if (a === b && b === c) {
           slotFrame.classList.add('win-green');
-          setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
+          setTimeout(() => slotFrame.classList.remove('win-green'), 2000);*/
+
+          /*if (soundsUnlocked) win2Sound.play(); // ← ЗВУК ВЫИГРЫША X2*/
+          playSound('win_2x.mp3', 0.7);
+        }
           
           confetti({
-            particleCount: 150,
+            particleCount: 100,
             spread: 270,
             origin: { x: 0.5, y: 0.5 },
             startVelocity: 45,
@@ -531,12 +599,10 @@ function initSlotMachineApp() {
           document.getElementById('giftBlueButton').textContent = randomMessage;
           document.getElementById('giftBlueButton').style.display = 'flex';
           
-          /*if (soundsUnlocked) win2Sound.play(); // ← ЗВУК ВЫИГРЫША X2*/
-          playSound('win_2x.mp3', 0.7);
-        }
+          
         
         slotMachine.style.pointerEvents = 'auto';
-      });
+      });*/
   }
 
   document.getElementById('slot-machine').addEventListener('click', rollAll);
