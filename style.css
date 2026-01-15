@@ -1,249 +1,3 @@
-/* === Масштабирование для мобильных === */
-@media (max-width: 640px) {
-  .app-container {
-    transform: scale(0.7);
-    transform-origin: top left;
-    width: 870px; /* = 608 / 0.7 */
-    height: 1543px; /* = 1080 / 0.7 */
-  }
-
-  /* === Welcome Robot === */
-  #welcomeScreen .robot-image {
-    position: absolute;
-    top: 450px; /* = 643 * 0.7 */
-    left: 150px; /* = 214 * 0.7 */
-    width: 308px; /* = 440 * 0.7 */
-    height: 490px; /* = 700 * 0.7 */
-    z-index: 1;
-  }
-
-  /* === Крестик закрытия === */
-  .close-button {
-    top: 17px; /* = 24 * 0.7 */
-    right: 17px; /* = 24 * 0.7 */
-    width: 22px; /* = 32 * 0.7 */
-    height: 22px; /* = 32 * 0.7 */
-    font-size: 14px; /* = 20 * 0.7 */
-  }
-
-  /* === Front Message === */
-  .frontMessage {
-    top: 516px; /* = 737 * 0.7 */
-    left: 38px; /* = 50% - 257px/2 * 0.7 */
-    width: 392px; /* = 560 * 0.7 */
-    height: 174px; /* = 249 * 0.7 */
-    border-radius: 4px 64px 64px 64px;
-    z-index: 4;
-  }
-
-  /* === Back Message === */
-  .backMessage {
-    top: 65px; /* = 93 * 0.7 */
-    left: 38px; /* = 50% - 280px/2 * 0.7 */
-    width: 392px; /* = 560 * 0.7 */
-    height: 154px; /* = 220 * 0.7 */
-    opacity: 0.2;
-    border-radius: 86px;
-    z-index: 3;
-  }
-
-  /* === Message Text === */
-  .message-text {
-    top: 524px; /* = 749 * 0.7 */
-    left: 39px; /* = 56 * 0.7 */
-    right: 21px; /* = 30 * 0.7 */
-    font-weight: 500;
-    font-size: 22px; /* = 32 * 0.7 */
-    line-height: 1.4;
-    color: black;
-    z-index: 6;
-    word-wrap: break-word;
-  }
-
-  /* === Mini Panel === */
-  .miniPanel {
-    top: 457px; /* = 653 * 0.7 */
-    left: 17px; /* = 24 * 0.7 */
-    width: 180px; /* = 257 * 0.7 */
-    height: 55px; /* = 78 * 0.7 */
-    background-color: white;
-    border-radius: 24px;
-    z-index: 5;
-    overflow: hidden;
-  }
-
-  .robot-status {
-    position: absolute;
-    left: 4px; /* = 6 * 0.7 */
-    top: 5px; /* = 7 * 0.7 */
-    width: auto;
-    height: auto;
-    max-width: none;
-  }
-
-  /* === Bot Title === */
-  .bot-title {
-    position: absolute;
-    top: 459px; /* = 657 * 0.7 */
-    left: 83px; /* = 119 * 0.7 */
-    font-weight: 700;
-    font-size: 22px; /* = 32 * 0.7 */
-    color: black;
-    z-index: 7;
-  }
-
-  /* === Status Dots === */
-  .status-dots {
-    position: absolute;
-    top: 494px; /* = 706 * 0.7 */
-    left: 86px; /* = 122 * 0.7 */
-    display: flex;
-    gap: 2px; /* = 3 * 0.7 */
-    z-index: 10;
-  }
-
-  .status-dots span {
-    width: 6px; /* = 9 * 0.7 */
-    height: 6px; /* = 9 * 0.7 */
-  }
-
-  /* === Bot Subtitle === */
-  .bot-subtitle {
-    position: absolute;
-    top: 490px; /* = 700 * 0.7 */
-    left: 115px; /* = 164 * 0.7 */
-    font-weight: 600;
-    font-size: 12px; /* = 18 * 0.7 */
-    color: black;
-    z-index: 10;
-    line-height: 1;
-  }
-
-  /* === Gift Button === */
-  .giftButton {
-    position: absolute;
-    top: 368px; /* = 526 * 0.7 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 281px; /* = 402 * 0.7 */
-    height: 55px; /* = 78 * 0.7 */
-    border-radius: 52px;
-    background: linear-gradient(to top right, #00B354, #49CC86);
-    display: flex;
-    align-items: center;
-    padding-left: 25px; /* = 36 * 0.7 */
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 20px; /* = 29 * 0.7 */
-    color: white;
-    cursor: pointer;
-    z-index: 11;
-    overflow: hidden;
-    display: none;
-  }
-
-  .gift-icon {
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: auto;
-    width: auto;
-    max-width: none;
-  }
-
-  /* === Score === */
-  .score-label {
-    position: absolute;
-    top: 470px; /* = 676 * 0.7 */
-    left: 210px; /* = 300 * 0.7 */
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 17px; /* = 24 * 0.7 */
-    color: white;
-    z-index: 12;
-  }
-
-  .score-value {
-    position: absolute;
-    top: 464px; /* = 668 * 0.7 */
-    left: 304px; /* = 434 * 0.7 */
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    font-size: 22px; /* = 32 * 0.7 */
-    color: white;
-    z-index: 12;
-  }
-
-  /* === Кнопки "Читать далее" / "Назад" === */
-  .readNext {
-    position: absolute;
-    bottom: 32px; /* = 45 * 0.7 */
-    right: 18px; /* = 26 * 0.7 */
-    width: 111px; /* = 158 * 0.7 */
-    height: 22px; /* = 32 * 0.7 */
-    background-color: white;
-    border-radius: 36px;
-    display: none;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 22px; /* = 32 * 0.7 */
-    cursor: pointer;
-    z-index: 12;
-  }
-
-  .readNext span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 11px; /* = 16 * 0.7 */
-    color: black;
-    white-space: nowrap;
-  }
-
-  .arrow-right {
-    position: absolute;
-    right: 7px; /* = 10 * 0.7 */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px; /* = 12 * 0.7 */
-    height: auto;
-  }
-
-  .readBack {
-    position: absolute;
-    bottom: 32px; /* = 45 * 0.7 */
-    left: 18px; /* = 26 * 0.7 */
-    width: 78px; /* = 112 * 0.7 */
-    height: 22px; /* = 32 * 0.7 */
-    background-color: white;
-    border-radius: 36px;
-    display: none;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 22px; /* = 32 * 0.7 */
-    cursor: pointer;
-    z-index: 12;
-  }
-
-  .readBack span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
-    font-size: 11px; /* = 16 * 0.7 */
-    color: black;
-    white-space: nowrap;
-  }
-
-  .arrow-left {
-    position: absolute;
-    left: 7px; /* = 10 * 0.7 */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px; /* = 12 * 0.7 */
-    height: auto;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -261,9 +15,11 @@ body {
 
 .app-container {
   position: relative;
-  width: 608px;
-  height: 1080px;
+  width: 100%;
+  max-width: 608px;
+  min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
 }
 
 /* === Общие элементы === */
@@ -271,8 +27,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 608px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   background-color: black;
   z-index: 0;
 }
@@ -281,7 +37,7 @@ body {
   position: absolute;
   top: 22px;
   left: 26px;
-  width: 556px;
+  right: 26px;
   height: 605px;
   background-color: white;
   border-radius: 92px;
@@ -292,7 +48,7 @@ body {
   position: absolute;
   top: 22px;
   left: 26px;
-  width: 556px;
+  right: 26px;
   height: 605px;
   background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/interface2.webp");
   background-size: cover;
@@ -307,7 +63,7 @@ body {
   position: absolute;
   top: 56px;
   left: 60px;
-  width: 488px;
+  right: 60px;
   height: 447px;
   background-color: #E5E5E5;
   border-radius: 68px;
@@ -336,17 +92,6 @@ body {
   width: auto;
   height: auto;
 }
-
-/*.avatar {
-  position: absolute;
-  top: 663px;
-  left: 37px;
-  width: 61px;
-  height: 61px;
-  background-color: black;
-  border-radius: 50%;
-  z-index: 13;
-}*/
 
 .bot-title {
   position: absolute;
@@ -399,9 +144,8 @@ body {
 .frontMessage {
   position: absolute;
   top: 737px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 560px;
+  left: 24px;
+  right: 24px;
   height: 249px;
   background-color: white;
   border-radius: 4px 64px 64px 64px;
@@ -481,7 +225,7 @@ body {
 /* === Слот: Читать далее === */
 #readNextSlot {
   right: 26px;
-  width: 170px; /* чуть шире, чтобы не переносилось */
+  width: 170px;
   justify-content: flex-end;
   padding-right: 28px;
 }
@@ -585,8 +329,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 608px;
-  height: 1080px;
+  width: 100%;
+  height: 100%;
   background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/background_overlay.webp");
   background-size: cover;
   background-position: center;
@@ -606,8 +350,8 @@ body {
   position: absolute;
   bottom: 61px;
   left: 0;
-  width: 608px;
-  height: calc(1080px - 61px);
+  width: 100%;
+  height: calc(100% - 61px);
   background: linear-gradient(to bottom right, #F5202C, #F84730, #EE7A61);
   border-bottom-left-radius: 96px;
   border-bottom-right-radius: 96px;
@@ -668,9 +412,8 @@ body {
 .backMessage {
   position: absolute;
   bottom: 93px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 560px;
+  left: 24px;
+  right: 24px;
   height: 220px;
   background-color: white;
   opacity: 0.2;
@@ -733,25 +476,6 @@ body {
   z-index: 12;
 }
 
-/*.giftBlueButton {
-  position: absolute;
-  top: 526px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 402px;
-  height: 78px;
-  border-radius: 52px;
-  background: linear-gradient(to top right, #8091FF, #9DAAFF);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 29px;
-  color: white;
-  z-index: 11;
-}*/
-
 /* Скрываем slot-frame только в welcome */
 #welcomeScreen .slot-frame {
   display: none !important;
@@ -761,7 +485,6 @@ body {
 #welcomeScreen .white-panel {
   display: none !important;
 }
-
 
 /* Курсор для барабанов */
 #slotMachineApp .slots .reel {
@@ -774,7 +497,7 @@ body {
 }
 
 #slotMachineApp .background {
-  background-color: #E30512; /* вместо black */
+  background-color: #E30512;
 }
 
 .close-button {
@@ -792,4 +515,214 @@ body {
 
 #giftBlueButton {
   display: none !important;
+}
+
+/* === Мобильная адаптация === */
+@media (max-width: 640px) {
+  /* Основные размеры */
+  .white-panel {
+    top: 15px;
+    left: 18px;
+    right: 18px;
+    height: 424px;
+    border-radius: 64px;
+  }
+  
+  .interface-overlay {
+    top: 15px;
+    left: 18px;
+    right: 18px;
+    height: 424px;
+  }
+  
+  /* Слот-фрейм */
+  #slotMachineApp .slot-frame {
+    top: 40px;
+    left: 42px;
+    right: 42px;
+    height: 313px;
+    border-radius: 48px;
+  }
+  
+  .slots {
+    width: 281px;
+    height: 281px;
+  }
+  
+  .slots .reel {
+    width: 94px;
+    height: 281px;
+  }
+  
+  /* Сообщения */
+  .frontMessage {
+    top: 516px;
+    left: 17px;
+    right: 17px;
+    height: 174px;
+    border-radius: 4px 45px 45px 45px;
+  }
+  
+  .message-text {
+    top: 524px;
+    left: 39px;
+    right: 21px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+  
+  .backMessage {
+    bottom: 65px;
+    left: 17px;
+    right: 17px;
+    height: 154px;
+    border-radius: 60px;
+  }
+  
+  /* Мини-панель */
+  .miniPanel {
+    top: 457px;
+    left: 17px;
+    width: 180px;
+    height: 55px;
+    border-radius: 17px;
+  }
+  
+  .robot-status {
+    left: 4px;
+    top: 5px;
+  }
+  
+  .bot-title {
+    top: 459px;
+    left: 83px;
+    font-size: 22px;
+  }
+  
+  .status-dots {
+    top: 494px;
+    left: 86px;
+    gap: 2px;
+  }
+  
+  .status-dots span {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .bot-subtitle {
+    top: 490px;
+    left: 115px;
+    font-size: 12px;
+  }
+  
+  /* Кнопки */
+  .readNext,
+  .readBack {
+    bottom: 32px;
+    height: 22px;
+  }
+  
+  .readNext span,
+  .readBack span {
+    font-size: 11px;
+  }
+  
+  .arrow-right,
+  .arrow-left {
+    width: 8px;
+  }
+  
+  #readNextWelcome {
+    right: 18px;
+    width: 111px;
+    padding-right: 22px;
+  }
+  
+  #readNextWelcome .arrow-right {
+    right: 7px;
+  }
+  
+  #readBackWelcome {
+    left: 18px;
+    width: 78px;
+    padding-left: 22px;
+  }
+  
+  #readBackWelcome .arrow-left {
+    left: 7px;
+  }
+  
+  #readNextSlot {
+    right: 18px;
+    width: 119px;
+    padding-right: 20px;
+  }
+  
+  #readNextSlot .arrow-right {
+    right: 7px;
+  }
+  
+  #readBackSlot {
+    left: 18px;
+    width: 78px;
+    padding-left: 22px;
+  }
+  
+  #readBackSlot .arrow-left {
+    left: 7px;
+  }
+  
+  /* Кнопка подарка */
+  .giftButton {
+    top: 368px;
+    width: 281px;
+    height: 55px;
+    border-radius: 36px;
+    padding-left: 25px;
+    font-size: 20px;
+  }
+  
+  .score-label {
+    top: 470px;
+    left: 210px;
+    font-size: 17px;
+  }
+  
+  .score-value {
+    top: 464px;
+    left: 304px;
+    font-size: 22px;
+  }
+  
+  /* Крестик */
+  .close-button {
+    top: 14px;
+    right: 14px;
+    font-size: 20px;
+  }
+  
+  /* Робот */
+  .welcome-robot {
+    top: 195px;
+    right: 36px;
+  }
+  
+  /* Градиент */
+  .gradient-panel {
+    bottom: 43px;
+    border-bottom-left-radius: 67px;
+    border-bottom-right-radius: 67px;
+  }
+  
+  /* Прогресс-бар */
+  .progressBar-dots {
+    bottom: 15px;
+    gap: 6px;
+  }
+  
+  .dot {
+    width: 9px;
+    height: 9px;
+  }
 }
