@@ -239,27 +239,12 @@ function createSnow() {
 }
 
 // === ЗВУКИ (нативный Audio) ===
-/*function playSound(filename, volume = 0.5) {
+function playSound(filename, volume = 0.5) {
   const audio = new Audio(filename);
   audio.volume = volume;
   audio.play().catch(e => {
     // Игнорируем ошибки autoplay (нормально для первого клика)
   });
-}*/
-
-const originalPlaySound = function(filename, volume = 0.5) {
-  if (!filename || typeof filename !== 'string') return;
-  const audio = new Audio(filename);
-  audio.volume = volume;
-  audio.play().catch(e => {
-    console.log("Звук заблокирован:", filename);
-  });
-};
-
-// Переписываем playSound с управлением звуком
-function playSound(filename, volume = 0.5) {
-  if (isMuted) return;
-  originalPlaySound(filename, volume);
 }
 
 // === Инициализация welcome ===
@@ -268,11 +253,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   const statusDots = document.querySelector('#welcomeScreen .status-dots');
   if (statusDots) statusDots.classList.add('animating');
-
-  const muteButton = document.getElementById('muteButton');
-  if (muteButton) {
-    muteButton.addEventListener('click', toggleMute);
-  }
   
   typeMessageWelcome(getWelcomeMessage(0), 40, false);
   
@@ -493,8 +473,7 @@ function initSlotMachineApp() {
         
         const slotFrame = document.querySelector('#slotMachineApp .slot-frame');
         slotFrame.classList.remove('win-blue', 'win-green');
-
-
+        
         const [a, b, c] = indexes;
 const iconA = iconMap[a];
 const iconB = iconMap[b];
@@ -546,63 +525,6 @@ else if (
 }
 
 slotMachine.style.pointerEvents = 'auto';
-
-        
-        /*снизу сломанный код */
-        /*const [a, b, c] = indexes;
-        const iconA = iconMap[a];
-        const iconB = iconMap[b];
-        const iconC = iconMap[c];
-        
-        if (a === b && b === c) {
-          slotFrame.classList.add('win-green');
-          setTimeout(() => slotFrame.classList.remove('win-green'), 2000);*/
-
-          /*if (soundsUnlocked) win2Sound.play(); // ← ЗВУК ВЫИГРЫША X2*/
-          playSound('win_2x.mp3', 0.7);
-        }
-          
-          confetti({
-            particleCount: 100,
-            spread: 270,
-            origin: { x: 0.5, y: 0.5 },
-            startVelocity: 45,
-            gravity: 1,
-            colors: ['#E30512', '#FFFFFF', '#5AB649', '#FFD700', '#1E90FF'],
-            scalar: 1.2,
-            zIndex: 1000
-          });
-
-          score += 1000;
-          document.getElementById('scoreValue').textContent = score;
-          
-          typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
-          document.getElementById('giftButton').classList.add('show');
-          
-          /*if (soundsUnlocked) jackpotSound.play(); // ← ЗВУК ДЖЕКПОТА*/
-          setTimeout(() => playSound('win_3x.mp3', 0.8), 300);
-        }
-        else if (
-          (a === b && a !== c && winSymbols.includes(iconA)) ||
-          (b === c && b !== a && winSymbols.includes(iconB)) ||
-          (a === c && a !== b && winSymbols.includes(iconA))
-        ) {
-          slotFrame.classList.add('win-blue');
-          setTimeout(() => slotFrame.classList.remove('win-blue'), 2000);
-          
-          const randomMessage = blueMessages[Math.floor(Math.random() * blueMessages.length)];
-          typeMessageSlot(randomMessage);
-          
-          score += 20;
-          document.getElementById('scoreValue').textContent = score;
-          
-          document.getElementById('giftBlueButton').textContent = randomMessage;
-          document.getElementById('giftBlueButton').style.display = 'flex';
-          
-          
-        
-        slotMachine.style.pointerEvents = 'auto';
-      });*/
   }
 
   document.getElementById('slot-machine').addEventListener('click', rollAll);
@@ -684,21 +606,3 @@ if (window.Telegram?.WebApp) {
     setTimeout(adjustAppScale, 100);
   });
 }
-
-
-// === УПРАВЛЕНИЕ ЗВУКОМ ===
-let isMuted = false;
-
-function toggleMute() {
-  isMuted = !isMuted;
-  const muteButton = document.getElementById('muteButton');
-  
-  if (isMuted) {
-    muteButton.textContent = '🔇';
-    muteButton.classList.add('muted');
-  } else {
-    muteButton.textContent = '🔊';
-    muteButton.classList.remove('muted');
-  }
-}
-
