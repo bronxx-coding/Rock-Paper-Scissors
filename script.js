@@ -525,7 +525,8 @@ else if (
 }
 
 slotMachine.style.pointerEvents = 'auto';
-  });
+      });
+  }
 
   document.getElementById('slot-machine').addEventListener('click', rollAll);
   
@@ -567,7 +568,7 @@ document.getElementById('closeSlot').addEventListener('click', () => {
   }, messageLength * 40 + 500);
 });
 
-function adjustAppScale() {
+/*function adjustAppScale() {
   const wrapper = document.querySelector('.webapp-wrapper');
   if (!wrapper) return;
   
@@ -588,6 +589,23 @@ function adjustAppScale() {
   // Фикс для iOS: предотвращаем "прыжки" при скролле
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
+}*/
+function adjustAppScale() {
+  const wrapper = document.querySelector('.webapp-wrapper');
+  if (!wrapper) return;
+  
+  const screenWidth = document.documentElement.clientWidth;
+  const designWidth = 608;
+  const scale = screenWidth < designWidth ? screenWidth / designWidth : 1;
+  
+  wrapper.style.transform = `scale(${scale})`;
+  wrapper.style.width = `${designWidth}px`;
+  wrapper.style.height = '1080px';
+  
+  document.body.style.overflow = 'hidden';
+  // УДАЛИ ЭТИ СТРОКИ:
+  // document.body.style.position = 'fixed';
+  // document.body.style.width = '100%';
 }
 
 // Запускаем с задержкой для iOS
