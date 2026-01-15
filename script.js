@@ -22,7 +22,7 @@ let currentTypingTimer = null;
     ctx.close();
   }, 10);
 }*/
-document.body.addEventListener('click', unlockSounds, { once: true });
+/*document.body.addEventListener('click', unlockSounds, { once: true });*/
 
 // Инициализация звуков
 /*function initSounds() {
@@ -239,6 +239,15 @@ function createSnow() {
   animate();
 }
 
+// === ЗВУКИ (нативный Audio) ===
+function playSound(filename, volume = 0.5) {
+  const audio = new Audio(filename);
+  audio.volume = volume;
+  audio.play().catch(e => {
+    // Игнорируем ошибки autoplay (нормально для первого клика)
+  });
+}
+
 // === Инициализация welcome ===
 document.addEventListener('DOMContentLoaded', async () => {
   /*initSounds(); */ // ← ИНИЦИАЛИЗАЦИЯ ЗВУКОВ
@@ -352,14 +361,7 @@ function initSlotMachineApp() {
     "ХА-ХА!😂 Я так и думал!\nЗа 2 шапки, шишки, кружки или 2 камина на центральной линии получишь очки, а за 3 любые главный приз!"
   ];
 
-  // === ЗВУКИ (нативный Audio) ===
-function playSound(filename, volume = 0.5) {
-  const audio = new Audio(filename);
-  audio.volume = volume;
-  audio.play().catch(e => {
-    // Игнорируем ошибки autoplay (нормально для первого клика)
-  });
-}
+
 
   function typeMessageSlot(text, speed = 40, animateDots = true) {
     const element = document.getElementById('typewriter-slot');
