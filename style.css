@@ -1,4 +1,30 @@
+/* === Защита от резиновой верстки Telegram === */
+.webapp-wrapper {
+  width: 608px;
+  height: 1080px;
+  overflow: hidden;
+  position: relative;
+  background: lightgrey;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background: lightgrey;
+  /* Запрещаем масштабирование */
+  overscroll-behavior: none;
+}
+
+/* Запрещаем выделение (для чистоты) */
 * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,11 +41,9 @@ body {
 
 .app-container {
   position: relative;
-  width: 100%;
-  max-width: 608px;
-  min-height: 100vh;
+  width: 608px;
+  height: 1080px;
   font-family: 'Montserrat', sans-serif;
-  overflow: hidden;
 }
 
 /* === Общие элементы === */
@@ -27,8 +51,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 608px;
+  height: 1080px;
   background-color: black;
   z-index: 0;
 }
@@ -37,7 +61,7 @@ body {
   position: absolute;
   top: 22px;
   left: 26px;
-  right: 26px;
+  width: 556px;
   height: 605px;
   background-color: white;
   border-radius: 92px;
@@ -48,7 +72,7 @@ body {
   position: absolute;
   top: 22px;
   left: 26px;
-  right: 26px;
+  width: 556px;
   height: 605px;
   background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/interface2.webp");
   background-size: cover;
@@ -63,7 +87,7 @@ body {
   position: absolute;
   top: 56px;
   left: 60px;
-  right: 60px;
+  width: 488px;
   height: 447px;
   background-color: #E5E5E5;
   border-radius: 68px;
@@ -92,6 +116,17 @@ body {
   width: auto;
   height: auto;
 }
+
+/*.avatar {
+  position: absolute;
+  top: 663px;
+  left: 37px;
+  width: 61px;
+  height: 61px;
+  background-color: black;
+  border-radius: 50%;
+  z-index: 13;
+}*/
 
 .bot-title {
   position: absolute;
@@ -144,8 +179,9 @@ body {
 .frontMessage {
   position: absolute;
   top: 737px;
-  left: 24px;
-  right: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
   height: 249px;
   background-color: white;
   border-radius: 4px 64px 64px 64px;
@@ -225,7 +261,7 @@ body {
 /* === Слот: Читать далее === */
 #readNextSlot {
   right: 26px;
-  width: 170px;
+  width: 170px; /* чуть шире, чтобы не переносилось */
   justify-content: flex-end;
   padding-right: 28px;
 }
@@ -329,8 +365,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 608px;
+  height: 1080px;
   background-image: url("https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/background_overlay.webp");
   background-size: cover;
   background-position: center;
@@ -350,8 +386,8 @@ body {
   position: absolute;
   bottom: 61px;
   left: 0;
-  width: 100%;
-  height: calc(100% - 61px);
+  width: 608px;
+  height: calc(1080px - 61px);
   background: linear-gradient(to bottom right, #F5202C, #F84730, #EE7A61);
   border-bottom-left-radius: 96px;
   border-bottom-right-radius: 96px;
@@ -412,8 +448,9 @@ body {
 .backMessage {
   position: absolute;
   bottom: 93px;
-  left: 24px;
-  right: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
   height: 220px;
   background-color: white;
   opacity: 0.2;
@@ -476,6 +513,25 @@ body {
   z-index: 12;
 }
 
+/*.giftBlueButton {
+  position: absolute;
+  top: 526px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 402px;
+  height: 78px;
+  border-radius: 52px;
+  background: linear-gradient(to top right, #8091FF, #9DAAFF);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 29px;
+  color: white;
+  z-index: 11;
+}*/
+
 /* Скрываем slot-frame только в welcome */
 #welcomeScreen .slot-frame {
   display: none !important;
@@ -485,6 +541,7 @@ body {
 #welcomeScreen .white-panel {
   display: none !important;
 }
+
 
 /* Курсор для барабанов */
 #slotMachineApp .slots .reel {
@@ -497,7 +554,7 @@ body {
 }
 
 #slotMachineApp .background {
-  background-color: #E30512;
+  background-color: #E30512; /* вместо black */
 }
 
 .close-button {
@@ -515,214 +572,4 @@ body {
 
 #giftBlueButton {
   display: none !important;
-}
-
-/* === Мобильная адаптация === */
-@media (max-width: 640px) {
-  /* Основные размеры */
-  .white-panel {
-    top: 15px;
-    left: 18px;
-    right: 18px;
-    height: 424px;
-    border-radius: 64px;
-  }
-  
-  .interface-overlay {
-    top: 15px;
-    left: 18px;
-    right: 18px;
-    height: 424px;
-  }
-  
-  /* Слот-фрейм */
-  #slotMachineApp .slot-frame {
-    top: 40px;
-    left: 42px;
-    right: 42px;
-    height: 313px;
-    border-radius: 48px;
-  }
-  
-  .slots {
-    width: 281px;
-    height: 281px;
-  }
-  
-  .slots .reel {
-    width: 94px;
-    height: 281px;
-  }
-  
-  /* Сообщения */
-  .frontMessage {
-    top: 516px;
-    left: 17px;
-    right: 17px;
-    height: 174px;
-    border-radius: 4px 45px 45px 45px;
-  }
-  
-  .message-text {
-    top: 524px;
-    left: 39px;
-    right: 21px;
-    font-size: 22px;
-    line-height: 1.4;
-  }
-  
-  .backMessage {
-    bottom: 65px;
-    left: 17px;
-    right: 17px;
-    height: 154px;
-    border-radius: 60px;
-  }
-  
-  /* Мини-панель */
-  .miniPanel {
-    top: 457px;
-    left: 17px;
-    width: 180px;
-    height: 55px;
-    border-radius: 17px;
-  }
-  
-  .robot-status {
-    left: 4px;
-    top: 5px;
-  }
-  
-  .bot-title {
-    top: 459px;
-    left: 83px;
-    font-size: 22px;
-  }
-  
-  .status-dots {
-    top: 494px;
-    left: 86px;
-    gap: 2px;
-  }
-  
-  .status-dots span {
-    width: 6px;
-    height: 6px;
-  }
-  
-  .bot-subtitle {
-    top: 490px;
-    left: 115px;
-    font-size: 12px;
-  }
-  
-  /* Кнопки */
-  .readNext,
-  .readBack {
-    bottom: 32px;
-    height: 22px;
-  }
-  
-  .readNext span,
-  .readBack span {
-    font-size: 11px;
-  }
-  
-  .arrow-right,
-  .arrow-left {
-    width: 8px;
-  }
-  
-  #readNextWelcome {
-    right: 18px;
-    width: 111px;
-    padding-right: 22px;
-  }
-  
-  #readNextWelcome .arrow-right {
-    right: 7px;
-  }
-  
-  #readBackWelcome {
-    left: 18px;
-    width: 78px;
-    padding-left: 22px;
-  }
-  
-  #readBackWelcome .arrow-left {
-    left: 7px;
-  }
-  
-  #readNextSlot {
-    right: 18px;
-    width: 119px;
-    padding-right: 20px;
-  }
-  
-  #readNextSlot .arrow-right {
-    right: 7px;
-  }
-  
-  #readBackSlot {
-    left: 18px;
-    width: 78px;
-    padding-left: 22px;
-  }
-  
-  #readBackSlot .arrow-left {
-    left: 7px;
-  }
-  
-  /* Кнопка подарка */
-  .giftButton {
-    top: 368px;
-    width: 281px;
-    height: 55px;
-    border-radius: 36px;
-    padding-left: 25px;
-    font-size: 20px;
-  }
-  
-  .score-label {
-    top: 470px;
-    left: 210px;
-    font-size: 17px;
-  }
-  
-  .score-value {
-    top: 464px;
-    left: 304px;
-    font-size: 22px;
-  }
-  
-  /* Крестик */
-  .close-button {
-    top: 14px;
-    right: 14px;
-    font-size: 20px;
-  }
-  
-  /* Робот */
-  .welcome-robot {
-    top: 195px;
-    right: 36px;
-  }
-  
-  /* Градиент */
-  .gradient-panel {
-    bottom: 43px;
-    border-bottom-left-radius: 67px;
-    border-bottom-right-radius: 67px;
-  }
-  
-  /* Прогресс-бар */
-  .progressBar-dots {
-    bottom: 15px;
-    gap: 6px;
-  }
-  
-  .dot {
-    width: 9px;
-    height: 9px;
-  }
 }
