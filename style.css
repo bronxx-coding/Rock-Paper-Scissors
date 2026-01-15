@@ -1,3 +1,144 @@
+/* === Масштабирование для мобильных === */
+@media (max-width: 640px) {
+  .app-container {
+    transform: scale(0.7);
+    transform-origin: top left;
+    width: 870px; /* = 608 / 0.7 */
+    height: 1543px; /* = 1080 / 0.7 */
+  }
+  
+  /* Адаптируем позиции */
+  .white-panel {
+    top: 15px;
+    left: 18px;
+    width: 390px;
+    height: 424px;
+  }
+  
+  .slot-frame {
+    top: 40px;
+    left: 42px;
+    width: 342px;
+    height: 313px;
+  }
+  
+  .slots {
+    width: 281px;
+    height: 281px;
+  }
+  
+  .reel {
+    width: 94px;
+    height: 281px;
+  }
+  
+  .message-text {
+    top: 524px;
+    left: 39px;
+    right: 21px;
+    font-size: 22px;
+  }
+  
+  .bot-title {
+    top: 459px;
+    left: 83px;
+    font-size: 22px;
+  }
+  
+  .status-dots {
+    top: 494px;
+    left: 86px;
+  }
+  
+  .bot-subtitle {
+    top: 490px;
+    left: 115px;
+    font-size: 12px;
+  }
+  
+  .miniPanel {
+    top: 457px;
+    left: 17px;
+    width: 180px;
+    height: 55px;
+  }
+  
+  .robot-status {
+    left: 4px;
+    top: 5px;
+    width: auto;
+    height: auto;
+  }
+  
+  .giftButton {
+    top: 368px;
+    width: 281px;
+    height: 55px;
+    padding-left: 25px;
+    font-size: 20px;
+  }
+  
+  .gift-icon {
+    right: 0px;
+    width: auto;
+    height: auto;
+  }
+  
+  .score-label {
+    top: 470px;
+    left: 210px;
+    font-size: 17px;
+  }
+  
+  .score-value {
+    top: 464px;
+    left: 304px;
+    font-size: 22px;
+  }
+  
+  .readNext {
+    bottom: 32px;
+    right: 18px;
+    width: 111px;
+    height: 22px;
+    padding-right: 22px;
+  }
+  
+  .readNext span {
+    font-size: 11px;
+  }
+  
+  .arrow-right {
+    right: 7px;
+    width: 8px;
+  }
+  
+  .readBack {
+    bottom: 32px;
+    left: 18px;
+    width: 78px;
+    height: 22px;
+    padding-left: 22px;
+  }
+  
+  .readBack span {
+    font-size: 11px;
+  }
+  
+  .arrow-left {
+    left: 7px;
+    width: 8px;
+  }
+  
+  .close-button {
+    top: 17px;
+    right: 17px;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
