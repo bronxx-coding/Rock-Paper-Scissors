@@ -572,20 +572,33 @@ body {
   display: none !important;
 }
 
+/* === КНОПКА ОТКЛЮЧЕНИЯ ЗВУКА === */
 .mute-button {
   position: absolute;
   top: 20px;
   left: 20px;
-  color: #FF9D94;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 28px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   z-index: 20;
-  line-height: 1;
   user-select: none;
 }
 
-.mute-button.muted {
-  color: #888888;
+.mute-button img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mute-button.muted::after {
+  content: "—";
+  position: absolute;
+  top: -4px;
+  left: 4px;
+  color: #E30512;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  pointer-events: none;
 }
