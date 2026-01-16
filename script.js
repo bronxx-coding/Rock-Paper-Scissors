@@ -662,6 +662,10 @@ document.getElementById('restartButton').addEventListener('click', () => {
   document.getElementById('giftButton').classList.remove('show');
   document.getElementById('giftBlueButton').style.display = 'none';
   
+  // Сбрасываем состояние слот-машины
+  const slotMachine = document.getElementById('slot-machine');
+  slotMachine.style.pointerEvents = 'auto';
+  
   // Скрываем сообщение
   typeMessageSlot(messages[0]);
 });
