@@ -602,3 +602,24 @@ body {
   line-height: 1;
   pointer-events: none;
 }
+
+.restart-button {
+  position: absolute;
+  top: 526px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 402px;
+  height: 78px;
+  border-radius: 52px;
+  background: linear-gradient(to top right, #E30512, #FF4D4D);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 29px;
+  color: white;
+  cursor: pointer;
+  z-index: 11;
+  overflow: hidden;
+}
