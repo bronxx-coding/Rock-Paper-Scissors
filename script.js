@@ -459,9 +459,9 @@ function initSlotMachineApp() {
     slotMachine.style.pointerEvents = 'none';
     
    /*if (soundsUnlocked) {
-  setTimeout(() => spinSound.play(), 400); // ← задержка 0.4 сек
+  setTimeout(() => spinSound.play(), 350); // ← задержка 0.35 сек
 } // ← ЗВУК СПИНА*/
-    setTimeout(() => playSound('spin_short.mp3', 0.6), 400);
+    setTimeout(() => playSound('spin_short.mp3', 0.3), 350);
     
     document.getElementById('giftButton').classList.remove('show');
     
@@ -483,7 +483,10 @@ if (a === b && b === c) {
   // === ДЖЕКПОТ (3x) ===
   slotFrame.classList.add('win-green');
   setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
+
+  playSound('win_3x.mp3', 0.8);
   
+  setTimeout(() => {
   confetti({
     particleCount: 150,
     spread: 270,
@@ -494,6 +497,7 @@ if (a === b && b === c) {
     scalar: 1.2,
     zIndex: 1000
   });
+}, 100);
   
   typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
   
@@ -501,7 +505,7 @@ if (a === b && b === c) {
   document.getElementById('scoreValue').textContent = score;
   document.getElementById('giftButton').classList.add('show');
   
-  setTimeout(() => playSound('win_3x.mp3', 0.8), 300);
+  
 }
 else if (
   (a === b && a !== c && winSymbols.includes(iconA)) ||
