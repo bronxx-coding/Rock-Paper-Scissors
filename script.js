@@ -239,11 +239,16 @@ function createSnow() {
 }
 
 // === ЗВУКИ (нативный Audio) ===
+// === ЗВУКИ И УПРАВЛЕНИЕ ===
+let isMuted = false;
+
 function playSound(filename, volume = 0.5) {
+  if (isMuted) return;
+  
   const audio = new Audio(filename);
   audio.volume = volume;
   audio.play().catch(e => {
-    // Игнорируем ошибки autoplay (нормально для первого клика)
+    console.log("Звук заблокирован:", filename);
   });
 }
 
@@ -269,6 +274,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }, 4000);
   
   createSnow();
+  // Обработчик кнопки отключения звука
+const muteButton = document.getElementById('muteButton');
+if (muteButton) {
+  muteButton.addEventListener('click', () => {
+    isMuted = !isMuted;
+    muteButton.classList.toggle('muted', isMuted);
+  });
+}
 });
 
 // === Обработчики welcome ===
@@ -628,3 +641,5 @@ if (window.Telegram?.WebApp) {
     setTimeout(adjustAppScale, 100);
   });
 }
+
+
