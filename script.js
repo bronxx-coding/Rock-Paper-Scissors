@@ -467,8 +467,8 @@ function initSlotMachineApp() {
     });
   }
 
-  // === ОБРАБОТЧИК КЛИКА ПО БАРАБАНАМ ===
-  document.getElementById('slot-machine').addEventListener
+  /*// === ОБРАБОТЧИК КЛИКА ПО БАРАБАНАМ ===
+  document.getElementById('slot-machine').addEventListener*/
 
   typeMessageSlot(messages[0], 40, true);
   setTimeout(() => {
