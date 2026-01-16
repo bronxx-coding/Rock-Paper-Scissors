@@ -376,6 +376,7 @@ function initSlotMachineApp() {
   let freeSpinsActive = false;
   let freeSpinsCount = 0;
   const speedPotionSymbol = "banana"; // Символ зелья скорости
+  let isSpeedPotionActive = false; // Глобальный флаг для звука спина
 
 
 
@@ -467,128 +468,7 @@ function initSlotMachineApp() {
   }
 
   // === ОБРАБОТЧИК КЛИКА ПО БАРАБАНАМ ===
-  document.getElementById('slot-machine').addEventListener('click', () => {
-    // Принудительно активируем аудио-контекст
-    const unlock = new Audio();
-    unlock.volume = 0;
-    unlock.play().catch(() => {});
-    
-    const reelsList = document.querySelectorAll('.slots > .reel');
-    const slotMachine = document.getElementById('slot-machine');
-    slotMachine.style.pointerEvents = 'none';
-    
-    // Списываем 10 очков за спин (если не активны бесплатные спины)
-    if (!freeSpinsActive) {
-      score -= 10;
-      document.getElementById('scoreValue').textContent = score;
-      
-      if (score <= 0) {
-        score = 0;
-        document.getElementById('scoreValue').textContent = score;
-        typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
-        
-        const restartButton = document.getElementById('restartButton');
-        if (restartButton) restartButton.style.display = 'flex';
-        
-        slotMachine.style.pointerEvents = 'auto';
-        return;
-      }
-    } else {
-      // Уменьшаем счётчик бесплатных спинов
-      freeSpinsCount--;
-      if (freeSpinsCount <= 0) {
-        freeSpinsActive = false;
-        freeSpinsCount = 0;
-        time_per_icon = 100;
-      }
-    }
-    
-    // Звук спина будет определён позже
-let spinSoundFile = 'spin_short.mp3';
-let spinVolume = 0.3;
-    document.getElementById('giftButton').classList.remove('show');
-    
-    Promise.all([...reelsList].map((reel, i) => roll(reel, i)))
-      .then((deltas) => {
-        deltas.forEach((delta, i) => {
-          indexes[i] = (indexes[i] + delta) % num_icons;
-        });
-        
-        const slotFrame = document.querySelector('#slotMachineApp .slot-frame');
-        slotFrame.classList.remove('win-blue', 'win-green');
-        
-        const [a, b, c] = indexes;
-        const iconA = iconMap[a];
-        const iconB = iconMap[b];
-        const iconC = iconMap[c];
-
-        // === ОПРЕДЕЛЯЕМ ЗВУК СПИНА ===
-let spinSoundFile = 'spin_short.mp3';
-let spinVolume = 0.3;
-
-// Если Speed Potion активен — меняем звук
-if (freeSpinsActive) {
-  spinSoundFile = 'spin_speed.mp3'; // 
-  spinVolume = 0.3; // можно сделать громче
-}
-
-// Воспроизводим звук спина
-playSound(spinSoundFile, spinVolume);
-        
-        if (a === b && b === c) {
-          // === ДЖЕКПОТ (3x) ===
-          slotFrame.classList.add('win-green');
-          setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
-          
-          playSound('win_3x.mp3', 0.8);
-          setTimeout(() => {
-            confetti({
-              particleCount: 150,
-              spread: 270,
-              origin: { x: 0.5, y: 0.5 },
-              startVelocity: 45,
-              gravity: 1,
-              colors: ['#E30512', '#FFFFFF', '#5AB649', '#FFD700', '#1E90FF'],
-              scalar: 1.2,
-              zIndex: 1000
-            });
-          }, 100);
-          
-          typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
-          score += 1000;
-          document.getElementById('scoreValue').textContent = score;
-          document.getElementById('giftButton').classList.add('show');
-        }
-        // === SPEED POTION (ровно 2 banana) ===
-        else if ([iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length === 2) {
-          freeSpinsActive = true;
-          freeSpinsCount = 10;
-          time_per_icon = 50;
-          
-          playSound('speed_potion_win.mp3', 0.8);
-          typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
-        }
-        // === ВЫИГРЫШ (2x) ===
-        else if (
-          (a === b && a !== c && winSymbols.includes(iconA)) ||
-          (b === c && b !== a && winSymbols.includes(iconB)) ||
-          (a === c && a !== b && winSymbols.includes(iconA))
-        ) {
-          slotFrame.classList.add('win-blue');
-          setTimeout(() => slotFrame.classList.remove('win-blue'), 2000);
-          
-          const randomMessage = blueMessages[Math.floor(Math.random() * blueMessages.length)];
-          typeMessageSlot(randomMessage);
-          score += 20;
-          document.getElementById('scoreValue').textContent = score;
-          document.getElementById('giftBlueButton').textContent = randomMessage;
-          document.getElementById('giftBlueButton').style.display = 'flex';
-          playSound('win_2x.mp3', 0.7);
-        }
-        
-        slotMachine.style.pointerEvents = 'auto';
-      });
-  });
+  document.getElementById('slot-machine').addEventListener
 
   typeMessageSlot(messages[0], 40, true);
   setTimeout(() => {
