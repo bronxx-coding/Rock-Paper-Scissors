@@ -343,7 +343,7 @@ document.getElementById('icon3').addEventListener('click', () => {
   }
 });
 
-// === СЛОТ-МАШИНА ===
+// === СЛОТ МАШИНА ===
 function initSlotMachineApp() {
   let score = 500;
   let messageState = 0;
@@ -408,8 +408,6 @@ function initSlotMachineApp() {
 
   // === УПРАВЛЕНИЕ КНОПКАМИ СЛОТА ===
   document.getElementById('readNextSlot').addEventListener('click', () => {
-    /*if (!soundsUnlocked) unlockSounds();
-    if (soundsUnlocked) clickSound.play();*/
     playSound('click.mp3', 0.5);
     if (messageState < 2) {
       messageState++;
@@ -429,8 +427,6 @@ function initSlotMachineApp() {
   });
 
   document.getElementById('readBackSlot').addEventListener('click', () => {
-    /*if (!soundsUnlocked) unlockSounds();
-    if (soundsUnlocked) clickSound.play();*/
     playSound('click.mp3', 0.5);
     if (messageState > 0) {
       messageState--;
@@ -470,7 +466,8 @@ function initSlotMachineApp() {
     });
   }
 
-  function rollAll() {
+  // === ОБРАБОТЧИК КЛИКА ПО БАРАБАНАМ ===
+  document.getElementById('slot-machine').addEventListener('click', () => {
     // Принудительно активируем аудио-контекст
     const unlock = new Audio();
     unlock.volume = 0;
@@ -481,60 +478,32 @@ function initSlotMachineApp() {
     slotMachine.style.pointerEvents = 'none';
     
     // Списываем 10 очков за спин (если не активны бесплатные спины)
-if (!freeSpinsActive) {
-  score -= 10;
-  document.getElementById('scoreValue').textContent = score;
-  
-  if (score <= 0) {
-    score = 0;
-    document.getElementById('scoreValue').textContent = score;
-    typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
+    if (!freeSpinsActive) {
+      score -= 10;
+      document.getElementById('scoreValue').textContent = score;
+      
+      if (score <= 0) {
+        score = 0;
+        document.getElementById('scoreValue').textContent = score;
+        typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
+        
+        const restartButton = document.getElementById('restartButton');
+        if (restartButton) restartButton.style.display = 'flex';
+        
+        slotMachine.style.pointerEvents = 'auto';
+        return;
+      }
+    } else {
+      // Уменьшаем счётчик бесплатных спинов
+      freeSpinsCount--;
+      if (freeSpinsCount <= 0) {
+        freeSpinsActive = false;
+        freeSpinsCount = 0;
+        time_per_icon = 100;
+      }
+    }
     
-    const restartButton = document.getElementById('restartButton');
-    if (restartButton) restartButton.style.display = 'flex';
-    
-    slotMachine.style.pointerEvents = 'auto';
-    return;
-  }
-} else {
-  // Уменьшаем счётчик бесплатных спинов
-  freeSpinsCount--;
-  // Списываем 10 очков за спин (если не активны бесплатные спины)
-if (!freeSpinsActive) {
-  // ... существующий код ...
-} else {
-  // Уменьшаем счётчик бесплатных спинов
-  freeSpinsCount--;
-  
-  // Если спины закончились — возвращаем стандартную скорость
-  if (freeSpinsCount <= 0) {
-    freeSpinsActive = false;
-    freeSpinsCount = 0;
-    time_per_icon = 100; // Возвращаем стандартную скорость
-  }
-}
-}
-  
-  // Проверка на 0 очков
-  if (score <= 0) {
-    score = 0;
-    document.getElementById('scoreValue').textContent = score;
-    typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
-    
-    // Показываем кнопку перезапуска
-    const restartButton = document.getElementById('restartButton');
-    if (restartButton) restartButton.style.display = 'flex';
-    
-    slotMachine.style.pointerEvents = 'auto';
-    return; // Прерываем вращение
-  }
-}
-    
-   /*if (soundsUnlocked) {
-  setTimeout(() => spinSound.play(), 350); // ← задержка 0.35 сек
-} // ← ЗВУК СПИНА*/
     setTimeout(() => playSound('spin_short.mp3', 0.3), 350);
-    
     document.getElementById('giftButton').classList.remove('show');
     
     Promise.all([...reelsList].map((reel, i) => roll(reel, i)))
@@ -547,72 +516,115 @@ if (!freeSpinsActive) {
         slotFrame.classList.remove('win-blue', 'win-green');
         
         const [a, b, c] = indexes;
-const iconA = iconMap[a];
-const iconB = iconMap[b];
-const iconC = iconMap[c];
-
-if (a === b && b === c) {
-  // === ДЖЕКПОТ (3x) ===
-  slotFrame.classList.add('win-green');
-  setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
-
-  playSound('win_3x.mp3', 0.8);
-  
-  setTimeout(() => {
-  confetti({
-    particleCount: 150,
-    spread: 270,
-    origin: { x: 0.5, y: 0.5 },
-    startVelocity: 45,
-    gravity: 1,
-    colors: ['#E30512', '#FFFFFF', '#5AB649', '#FFD700', '#1E90FF'],
-    scalar: 1.2,
-    zIndex: 1000
-  });
-}, 100);
-  
-  typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
-  
-  score += 1000;
-  document.getElementById('scoreValue').textContent = score;
-  document.getElementById('giftButton').classList.add('show');
-  
-  
-}
-// === SPEED POTION (ровно 2 banana) ===
-const bananaCount = [iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length;
-if (bananaCount === 2) {
-  freeSpinsActive = true;
-  freeSpinsCount = 10;
-  time_per_icon = 50; // Ускорение
-  
-  playSound('speed_potion_win.mp3', 0.8);
-  typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
-}
-else if (
-  (a === b && a !== c && winSymbols.includes(iconA)) ||
-  (b === c && b !== a && winSymbols.includes(iconB)) ||
-  (a === c && a !== b && winSymbols.includes(iconA))
-) {
-  // === ВЫИГРЫШ (2x) ===
-  slotFrame.classList.add('win-blue');
-  setTimeout(() => slotFrame.classList.remove('win-blue'), 2000);
-  
-  const randomMessage = blueMessages[Math.floor(Math.random() * blueMessages.length)];
-  typeMessageSlot(randomMessage);
-  
-  score += 20;
-  document.getElementById('scoreValue').textContent = score;
-  
-  document.getElementById('giftBlueButton').textContent = randomMessage;
-  document.getElementById('giftBlueButton').style.display = 'flex';
-  
-  playSound('win_2x.mp3', 0.7);
-}
-
-slotMachine.style.pointerEvents = 'auto';
+        const iconA = iconMap[a];
+        const iconB = iconMap[b];
+        const iconC = iconMap[c];
+        
+        if (a === b && b === c) {
+          // === ДЖЕКПОТ (3x) ===
+          slotFrame.classList.add('win-green');
+          setTimeout(() => slotFrame.classList.remove('win-green'), 2000);
+          
+          playSound('win_3x.mp3', 0.8);
+          setTimeout(() => {
+            confetti({
+              particleCount: 150,
+              spread: 270,
+              origin: { x: 0.5, y: 0.5 },
+              startVelocity: 45,
+              gravity: 1,
+              colors: ['#E30512', '#FFFFFF', '#5AB649', '#FFD700', '#1E90FF'],
+              scalar: 1.2,
+              zIndex: 1000
+            });
+          }, 100);
+          
+          typeMessageSlot("Поздравляю с победой,\nя знал, что у тебя получится! Кликай и забирай свой подарок! 🎁");
+          score += 1000;
+          document.getElementById('scoreValue').textContent = score;
+          document.getElementById('giftButton').classList.add('show');
+        }
+        // === SPEED POTION (ровно 2 banana) ===
+        else if ([iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length === 2) {
+          freeSpinsActive = true;
+          freeSpinsCount = 10;
+          time_per_icon = 50;
+          
+          playSound('speed_potion_win.mp3', 0.8);
+          typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
+        }
+        // === ВЫИГРЫШ (2x) ===
+        else if (
+          (a === b && a !== c && winSymbols.includes(iconA)) ||
+          (b === c && b !== a && winSymbols.includes(iconB)) ||
+          (a === c && a !== b && winSymbols.includes(iconA))
+        ) {
+          slotFrame.classList.add('win-blue');
+          setTimeout(() => slotFrame.classList.remove('win-blue'), 2000);
+          
+          const randomMessage = blueMessages[Math.floor(Math.random() * blueMessages.length)];
+          typeMessageSlot(randomMessage);
+          score += 20;
+          document.getElementById('scoreValue').textContent = score;
+          document.getElementById('giftBlueButton').textContent = randomMessage;
+          document.getElementById('giftBlueButton').style.display = 'flex';
+          playSound('win_2x.mp3', 0.7);
+        }
+        
+        slotMachine.style.pointerEvents = 'auto';
       });
-  }
+  });
+
+  typeMessageSlot(messages[0], 40, true);
+  setTimeout(() => {
+    document.getElementById('readNextSlot').style.display = 'flex';
+    document.getElementById('readBackSlot').style.display = 'none';
+  }, 4000);
+}
+
+// Обработчик кнопки перезапуска
+document.getElementById('restartButton').addEventListener('click', () => {
+  playSound('click.mp3', 0.5);
+  
+  // Сбрасываем игру
+  score = 500;
+  document.getElementById('scoreValue').textContent = score;
+  document.getElementById('restartButton').style.display = 'none';
+  document.getElementById('giftButton').classList.remove('show');
+  document.getElementById('giftBlueButton').style.display = 'none';
+  
+  // Скрываем сообщение
+  typeMessageSlot(messages[0]);
+});
+
+// Обработчик закрытия слота
+document.getElementById('closeSlot').addEventListener('click', () => {
+  playSound('click.mp3', 0.5);
+  document.getElementById('slotMachineApp').style.display = 'none';
+  document.getElementById('welcomeScreen').style.display = 'block';
+  
+  welcomePhase = 0;
+  updateIconVisibility();
+  updateProgressBar();
+  
+  // Скрываем кнопки до окончания печати
+  document.getElementById('readNextWelcome').style.display = 'none';
+  document.getElementById('readBackWelcome').style.display = 'none';
+  
+  // Перезапускаем снег
+  const snowCanvas = document.getElementById('snow-canvas');
+  if (snowCanvas) snowCanvas.remove();
+  createSnow();
+  
+  // Печатаем сообщение и показываем кнопку после завершения
+  typeMessageWelcome(getWelcomeMessage(0), 40, true);
+  
+  // Ждём завершения печати (длина текста * скорость + буфер)
+  const messageLength = getWelcomeMessage(0).length;
+  setTimeout(() => {
+    document.getElementById('readNextWelcome').style.display = 'flex';
+  }, messageLength * 40 + 500);
+});
 
   document.getElementById('slot-machine').addEventListener('click', rollAll);
   
