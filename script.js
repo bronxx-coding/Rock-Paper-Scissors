@@ -503,7 +503,9 @@ function initSlotMachineApp() {
       }
     }
     
-    setTimeout(() => playSound('spin_short.mp3', 0.3), 350);
+    // Звук спина будет определён позже
+let spinSoundFile = 'spin_short.mp3';
+let spinVolume = 0.3;
     document.getElementById('giftButton').classList.remove('show');
     
     Promise.all([...reelsList].map((reel, i) => roll(reel, i)))
@@ -519,6 +521,19 @@ function initSlotMachineApp() {
         const iconA = iconMap[a];
         const iconB = iconMap[b];
         const iconC = iconMap[c];
+
+        // === ОПРЕДЕЛЯЕМ ЗВУК СПИНА ===
+let spinSoundFile = 'spin_short.mp3';
+let spinVolume = 0.3;
+
+// Если Speed Potion активен — меняем звук
+if (freeSpinsActive) {
+  spinSoundFile = 'spin_speed.mp3'; // 
+  spinVolume = 0.3; // можно сделать громче
+}
+
+// Воспроизводим звук спина
+playSound(spinSoundFile, spinVolume);
         
         if (a === b && b === c) {
           // === ДЖЕКПОТ (3x) ===
