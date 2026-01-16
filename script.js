@@ -481,7 +481,7 @@ function initSlotMachineApp() {
     
     // === ВОСПРОИЗВОДИМ ЗВУК СПИНА СРАЗУ ===
     if (freeSpinsActive) {
-      playSound('spin_speed.mp3', 0.2);
+      playSound('spin_speed.mp3', 0.05);
     } else {
       playSound('spin_short.mp3', 0.1);
     }
