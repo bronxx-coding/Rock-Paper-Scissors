@@ -580,9 +580,9 @@ function initSlotMachineApp() {
     document.getElementById('readNextSlot').style.display = 'flex';
     document.getElementById('readBackSlot').style.display = 'none';
   }, 4000);
-}
+} //конец initslotmachine
 
-// Обработчик кнопки перезапуска
+/*// Обработчик кнопки перезапуска
 document.getElementById('restartButton').addEventListener('click', () => {
   playSound('click.mp3', 0.5);
   
@@ -633,7 +633,7 @@ document.getElementById('closeSlot').addEventListener('click', () => {
     document.getElementById('readNextSlot').style.display = 'flex';
     document.getElementById('readBackSlot').style.display = 'none';
   }, 4000);
-}
+}*/
 
 // Обработчик кнопки перезапуска
 document.getElementById('restartButton').addEventListener('click', () => {
