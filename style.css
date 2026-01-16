@@ -640,3 +640,46 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
+/* === SPEED POTION АНИМАЦИЯ === */
+@keyframes speedPotionGlow {
+  0% { 
+    background-position: 0 0, 0 100%, 100% 100%, 100% 0;
+  }
+  25% { 
+    background-position: 100% 0, 0 0, 0 100%, 100% 100%;
+  }
+  50% { 
+    background-position: 100% 100%, 100% 0, 0 0, 0 100%;
+  }
+  75% { 
+    background-position: 0 100%, 100% 100%, 100% 0, 0 0;
+  }
+  100% { 
+    background-position: 0 0, 0 100%, 100% 100%, 100% 0;
+  }
+}
+
+.slot-frame.speed-potion {
+  position: relative;
+}
+
+.slot-frame.speed-potion::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: 
+    linear-gradient(90deg, #4A90E2 0%, #5AB649 100%),
+    linear-gradient(0deg, #4A90E2 0%, #5AB649 100%),
+    linear-gradient(270deg, #4A90E2 0%, #5AB649 100%),
+    linear-gradient(180deg, #4A90E2 0%, #5AB649 100%);
+  background-size: 20px 2px, 2px 20px, 20px 2px, 2px 20px;
+  background-repeat: no-repeat;
+  animation: speedPotionGlow 3s linear infinite;
+  border-radius: 12px;
+  filter: blur(1px);
+  z-index: 5;
+}
