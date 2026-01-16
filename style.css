@@ -93,6 +93,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* Убирает серый отклик на iOS */
 }
 
 .miniPanel {
@@ -402,6 +404,8 @@ body {
   display: flex;
   gap: 12px;
   z-index: 9;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* Убирает серый отклик на iOS */
 }
 
 .slots .reel {
@@ -622,4 +626,17 @@ body {
   cursor: pointer;
   z-index: 11;
   overflow: hidden;
+}
+
+/* === МОБИЛЬНАЯ ИНТЕРАКТИВНОСТЬ === */
+.slot-frame,
+.slots,
+.reel {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
