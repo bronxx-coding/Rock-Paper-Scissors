@@ -621,7 +621,7 @@ slotMachine.style.pointerEvents = 'auto';
     document.getElementById('readNextSlot').style.display = 'flex';
     document.getElementById('readBackSlot').style.display = 'none';
   }, 4000);
-}
+/*} */
 
 // Обработчик кнопки перезапуска
 document.getElementById('restartButton').addEventListener('click', () => {
