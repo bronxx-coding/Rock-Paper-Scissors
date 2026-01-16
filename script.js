@@ -467,6 +467,11 @@ function initSlotMachineApp() {
   }
 
   function rollAll() {
+    // Принудительно активируем аудио-контекст
+    const unlock = new Audio();
+    unlock.volume = 0;
+    unlock.play().catch(() => {});
+    
     const reelsList = document.querySelectorAll('.slots > .reel');
     const slotMachine = document.getElementById('slot-machine');
     slotMachine.style.pointerEvents = 'none';
