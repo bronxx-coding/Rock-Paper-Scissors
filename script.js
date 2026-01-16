@@ -345,7 +345,7 @@ document.getElementById('icon3').addEventListener('click', () => {
 
 // === СЛОТ-МАШИНА ===
 function initSlotMachineApp() {
-  let score = 0;
+  let score = 500;
   let messageState = 0;
   let currentTypingTimerSlot = null;
   const iconMap = ["banana", "seven", "cherry", "plum", "orange", "bell", "bar", "lemon", "melon"];
@@ -365,13 +365,17 @@ function initSlotMachineApp() {
   const icon_width = 134;
   const icon_height = 134;
   const num_icons = 9;
-  const time_per_icon = 100;
+  let time_per_icon = 100;
   let indexes = [0, 0, 0];
   const messages = [
     "Время испытать твою удачу, тапай по экрану с иконками, возможно тебе удастся выиграть🍀",
     "Некоторые комбинации из двух символов дают очки. Можешь отыскать их сам или перейти к следующему сообщению c подсказкой!💎",
     "ХА-ХА!😂 Я так и думал!\nЗа 2 шапки, шишки, кружки или 2 камина на центральной линии получишь очки, а за 3 любые главный приз!"
   ];
+  
+  let freeSpinsActive = false;
+  let freeSpinsCount = 0;
+  const speedPotionSymbol = "banana"; // Символ зелья скорости
 
 
 
@@ -476,6 +480,56 @@ function initSlotMachineApp() {
     const slotMachine = document.getElementById('slot-machine');
     slotMachine.style.pointerEvents = 'none';
     
+    // Списываем 10 очков за спин (если не активны бесплатные спины)
+if (!freeSpinsActive) {
+  score -= 10;
+  document.getElementById('scoreValue').textContent = score;
+  
+  if (score <= 0) {
+    score = 0;
+    document.getElementById('scoreValue').textContent = score;
+    typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
+    
+    const restartButton = document.getElementById('restartButton');
+    if (restartButton) restartButton.style.display = 'flex';
+    
+    slotMachine.style.pointerEvents = 'auto';
+    return;
+  }
+} else {
+  // Уменьшаем счётчик бесплатных спинов
+  freeSpinsCount--;
+  // Списываем 10 очков за спин (если не активны бесплатные спины)
+if (!freeSpinsActive) {
+  // ... существующий код ...
+} else {
+  // Уменьшаем счётчик бесплатных спинов
+  freeSpinsCount--;
+  
+  // Если спины закончились — возвращаем стандартную скорость
+  if (freeSpinsCount <= 0) {
+    freeSpinsActive = false;
+    freeSpinsCount = 0;
+    time_per_icon = 100; // Возвращаем стандартную скорость
+  }
+}
+}
+  
+  // Проверка на 0 очков
+  if (score <= 0) {
+    score = 0;
+    document.getElementById('scoreValue').textContent = score;
+    typeMessageSlot("Мне жаль, друг...Кажется\nв этот раз тебе не удалось выиграть😔 Отдохнём\nи попробуем снова?❤️‍🩹");
+    
+    // Показываем кнопку перезапуска
+    const restartButton = document.getElementById('restartButton');
+    if (restartButton) restartButton.style.display = 'flex';
+    
+    slotMachine.style.pointerEvents = 'auto';
+    return; // Прерываем вращение
+  }
+}
+    
    /*if (soundsUnlocked) {
   setTimeout(() => spinSound.play(), 350); // ← задержка 0.35 сек
 } // ← ЗВУК СПИНА*/
@@ -525,6 +579,16 @@ if (a === b && b === c) {
   
   
 }
+// === SPEED POTION (ровно 2 banana) ===
+const bananaCount = [iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length;
+if (bananaCount === 2) {
+  freeSpinsActive = true;
+  freeSpinsCount = 10;
+  time_per_icon = 50; // Ускорение
+  
+  playSound('speed_potion_win.mp3', 0.8);
+  typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
+}
 else if (
   (a === b && a !== c && winSymbols.includes(iconA)) ||
   (b === c && b !== a && winSymbols.includes(iconB)) ||
@@ -558,6 +622,21 @@ slotMachine.style.pointerEvents = 'auto';
     document.getElementById('readBackSlot').style.display = 'none';
   }, 4000);
 }
+
+// Обработчик кнопки перезапуска
+document.getElementById('restartButton').addEventListener('click', () => {
+  playSound('click.mp3', 0.5);
+  
+  // Сбрасываем игру
+  score = 500;
+  document.getElementById('scoreValue').textContent = score;
+  document.getElementById('restartButton').style.display = 'none';
+  document.getElementById('giftButton').classList.remove('show');
+  document.getElementById('giftBlueButton').style.display = 'none';
+  
+  // Скрываем сообщение
+  typeMessageSlot(messages[0]);
+});
 
 // Обработчик закрытия слота
 document.getElementById('closeSlot').addEventListener('click', () => {
