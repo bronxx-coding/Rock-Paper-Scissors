@@ -660,6 +660,7 @@ body {
   }
 }
 
+/* === SPEED POTION ПРОСТАЯ ОБВОДКА === */
 .slot-frame.speed-potion {
   position: relative;
 }
@@ -667,19 +668,12 @@ body {
 .slot-frame.speed-potion::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: 
-    linear-gradient(90deg, #4A90E2 0%, #5AB649 100%),
-    linear-gradient(0deg, #4A90E2 0%, #5AB649 100%),
-    linear-gradient(270deg, #4A90E2 0%, #5AB649 100%),
-    linear-gradient(180deg, #4A90E2 0%, #5AB649 100%);
-  background-size: 20px 2px, 2px 20px, 20px 2px, 2px 20px;
-  background-repeat: no-repeat;
-  animation: speedPotionGlow 3s linear infinite;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 10px solid #465FFF;
   border-radius: 12px;
-  filter: blur(1px);
   z-index: 5;
+  pointer-events: none;
 }
