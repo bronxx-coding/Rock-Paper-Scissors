@@ -481,9 +481,9 @@ function initSlotMachineApp() {
     
     // === ВОСПРОИЗВОДИМ ЗВУК СПИНА СРАЗУ ===
     if (freeSpinsActive) {
-      playSound('spin_speed.mp3', 0.4);
+      playSound('spin_speed.mp3', 0.2);
     } else {
-      playSound('spin_short.mp3', 0.3);
+      playSound('spin_short.mp3', 0.1);
     }
     
     // Списываем 10 очков за спин (если не активны бесплатные спины)
@@ -506,10 +506,14 @@ function initSlotMachineApp() {
       // Уменьшаем счётчик бесплатных спинов
       freeSpinsCount--;
       if (freeSpinsCount <= 0) {
-        freeSpinsActive = false;
-        freeSpinsCount = 0;
-        time_per_icon = 100;
-      }
+  freeSpinsActive = false;
+  freeSpinsCount = 0;
+  time_per_icon = 100;
+  
+  // Убираем визуальный эффект
+  const slotFrame = document.querySelector('#slotMachineApp .slot-frame');
+  slotFrame.classList.remove('speed-potion');
+}
     }
     
     document.getElementById('giftButton').classList.remove('show');
@@ -553,14 +557,18 @@ function initSlotMachineApp() {
           document.getElementById('giftButton').classList.add('show');
         }
         // === SPEED POTION (ровно 2 banana) ===
-        else if ([iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length === 2) {
-          freeSpinsActive = true;
-          freeSpinsCount = 10;
-          time_per_icon = 50;
-          
-          playSound('speed_potion_win.mp3', 0.8);
-          typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
-        }
+else if ([iconA, iconB, iconC].filter(icon => icon === speedPotionSymbol).length === 2) {
+  freeSpinsActive = true;
+  freeSpinsCount = 10;
+  time_per_icon = 50;
+  
+  // Активируем визуальный эффект
+  const slotFrame = document.querySelector('#slotMachineApp .slot-frame');
+  slotFrame.classList.add('speed-potion');
+  
+  playSound('speed_potion_win.mp3', 0.8);
+  typeMessageSlot("Ого! Ты нашёл зелье скорости!⚡ Следующие 10 вращений станут быстрыми и не будут тратить очки!🚀");
+}
         // === ВЫИГРЫШ (2x) ===
         else if (
           (a === b && a !== c && winSymbols.includes(iconA)) ||
