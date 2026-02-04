@@ -677,3 +677,13 @@ body {
   z-index: 5;
   pointer-events: none;
 }
+
+.welcome-robot-video {
+  position: absolute;
+  top: 279px;
+  right: 51px;
+  z-index: 9;
+  width: auto; /* чтобы сохранить пропорции */
+  height: auto;
+  max-width: 200px; /* или как у твоего робота — подстрой под размер видео */
+}
