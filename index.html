@@ -22,9 +22,41 @@
       <div class="white-panel"></div>
       <!-- <img src="https://raw.githubusercontent.com/bronxx-coding/Rock-Paper-Scissors/refs/heads/main/welcome_robot.webp" class="welcome-robot"> -->
       <!-- Для ПК: WebM -->
-<video class="welcome-robot-video webm-only" autoplay muted loop playsinline>
+<!-- <video class="welcome-robot-video webm-only" autoplay muted loop playsinline>
   <source src="Comp 1.webm" type="video/webm">
-</video>
+</video> -->
+
+    <!-- Контейнер для видео/GIF -->
+<div id="welcome-media"></div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  // Получаем реальную ширину Mini App
+  const width = Telegram.WebApp.viewportWidth || window.innerWidth;
+
+  const container = document.getElementById('welcome-media');
+  const style = `
+    position: absolute;
+    top: 300px;
+    left: 170px;
+    z-index: 9;
+    width: auto;
+    height: auto;
+    max-width: 500px;
+  `;
+
+  if (width <= 768) {
+    // Мобильное устройство → GIF
+    container.innerHTML = `<img src="comp1.gif" alt="" style="${style}">`;
+  } else {
+    // ПК → WebM
+    container.innerHTML = `
+      <video autoplay muted loop playsinline style="${style}">
+        <source src="comp1.webm" type="video/webm">
+      </video>
+    `;
+  }
+</script>
 
 <!-- Для мобильных: GIF -->
 <img class="welcome-robot-video gif-only" src="Comp 1.gif" alt="">
@@ -124,6 +156,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
