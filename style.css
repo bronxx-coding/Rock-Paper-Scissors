@@ -18,6 +18,10 @@ body {
   overflow: hidden;
 }
 
+.gif-only {
+  display: none;
+}
+
 /* Масштабирование по ширине */
 @media (max-width: 608px) {
   .webapp-wrapper {
@@ -697,9 +701,4 @@ body {
   width: auto;
   height: auto;
   max-width: 500px;
-}
-
-/* По умолчанию показываем WebM (для ПК) */
-.gif-only {
-  
 }
