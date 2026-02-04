@@ -18,15 +18,31 @@ body {
   overflow: hidden;
 }
 
-/* Масштабирование по ширине */
+/* Масштабирование по ширине *//*
 @media (max-width: 608px) {
   .webapp-wrapper {
     transform: scale(calc(100vw / 608));
   }
-}
+}*/
 
-/* На мобильных скрываем WebM и показываем GIF */
+/* На мобильных скрываем WebM и показываем GIF *//*
 @media (max-width: 768px) {
+  .webm-only {
+    display: none;
+  }
+  .gif-only {
+    display: block;
+  }
+}*/
+
+/* Адаптивность под Mini App */
+@media (max-width: 608px) {
+  .webapp-wrapper {
+    transform: scale(calc(100vw / 608));
+    transform-origin: top left;
+  }
+
+  /* То же условие — скрываем WebM, показываем GIF */
   .webm-only {
     display: none;
   }
