@@ -678,12 +678,33 @@ body {
   pointer-events: none;
 }
 
-.welcome-robot-video {
+/*.welcome-robot-video {
   position: absolute;
   top: 300px;
   left: 170px;
   z-index: 9;
+  width: auto; /* чтобы сохранить пропорции *//*
+  height: auto;
+  max-width: 500px;
+}*/
+
+.video-container {
+  position: absolute;
+  top: 300px;
+  left: 170px;
+  z-index: 9;
+  display: inline-block;
+  background: #fff; /* ← ключевой фикс! */
+  border-radius: 12px;
+  overflow: hidden;
+}
+.welcome-robot-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
   width: auto; /* чтобы сохранить пропорции */
   height: auto;
-  max-width: 500px; 
+  max-width: 500px;
+  background: transparent;
 }
